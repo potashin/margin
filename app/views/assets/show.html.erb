@@ -1,0 +1,12 @@
+<table class="table">
+  <tr>
+    <th>Идентификатор</th>
+    <th>Описание</th>
+  </tr>
+
+  <tr style="color: <%= @asset.is_liquid ? 'green' : 'red' %>">
+    <td><%= @asset.id %></td>
+    <td><%= @asset.description %></td>
+    <td></td>
+  </tr>
+</table>

@@ -1,0 +1,31 @@
+<table class="table">
+  <tr>
+    <th>Инструмент</th>
+    <th>Платежный инструмент</th>
+    <th>Цена</th>
+    <th>Количество</th>
+    <th>Тип заявки</th>
+    <th></th>
+  </tr>
+  <% @orders.each do |order| %>
+      <tr >
+        <td><%= order.asset_id %></td>
+        <td><%= order.payment_instrument_id %></td>
+        <td><%= order.price %></td>
+        <td><%= order.quantity %></td>
+        <td><%= order.status_type.description %></td>
+        <td>
+          <div class="btn-group" role="menu">
+            <%= link_to 'Edit', edit_order_path(order.id) , remote: true, class: 'btn btn-default' %>
+            <%= link_to 'Delete', order , :confirm => 'Are you sure?', :method =>:delete  , remote: true, class: 'btn btn-danger' %>
+          </div>
+        </td>
+      </tr>
+  <% end %>
+  <tr>
+    <td colspan="6">
+      <%= link_to 'New Order', new_order_path, remote: true, class: 'btn btn-default btn-block' %>
+    </td>
+  </tr>
+</table>
+

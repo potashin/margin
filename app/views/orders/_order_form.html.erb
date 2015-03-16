@@ -1,0 +1,37 @@
+<%= form_for @order, html: {class: 'form-horizontal'}, remote: true do |f|   %>
+    <div class="field form-group">
+      <%= f.label :asset_id, class: 'col-sm-4 control-label' %>
+      <div class="col-sm-8">
+        <%= f.collection_select :asset_id, Asset.all, :id, :id %>
+      </div>
+    </div>
+    <div class="field form-group">
+      <%= f.label :payment_instrument_id, class: 'col-sm-4 control-label' %>
+      <div class="col-sm-8">
+        <%= f.collection_select :payment_instrument_id, Asset.where(asset_type_id: 'FX').all, :id, :id , include_blank: true %>
+      </div>
+    </div>
+    <div class="field form-group">
+      <%= f.label :price, class: 'col-sm-4 control-label' %>
+      <div class="col-sm-8">
+        <%= f.text_field  :price, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="field form-group">
+      <%= f.label :quantity, class: 'col-sm-4 control-label' %>
+      <div class="col-sm-8">
+        <%= f.text_field  :quantity, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="field form-group">
+      <%= f.label :status_type_id, class: 'col-sm-4 control-label' %>
+      <div class="col-sm-8">
+        <%= f.collection_select :status_type_id, StatusType.all, :id, :description %>
+      </div>
+    </div>
+    <div class="actions form-group">
+      <div class="col-sm-offset-4 col-sm-8">
+        <%= f.submit "Save", class: 'btn btn-success' %>
+      </div>
+    </div>
+<% end %>

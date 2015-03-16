@@ -1,0 +1,16 @@
+<table class="table">
+  <tr>
+    <th>Инструмент</th>
+    <th>Платежный инструмент</th>
+    <th>Количество</th>
+    <th>Тип</th>
+  </tr>
+  <% @items.each do |item| %>
+      <tr >
+        <td><%= item.asset_id %></td>
+        <td><%= item.payment_instrument_id %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.status_type.description %></td>
+      </tr>
+  <% end %>
+</table>
