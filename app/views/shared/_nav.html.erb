@@ -23,7 +23,7 @@
                   <div class="navbar-login">
                     <div class="row">
                       <div class="col-xs-7 col-xs-height">
-                        <p class="text-left"><strong><%= (if current_client.name.nil? then '' else current_client.name end) + (if current_client.surname.nil? then '' else current_client.surname end) %></strong></p>
+                        <p class="text-left"><strong><%= (if current_client.name.nil? then '' else current_client.name end) + ' ' + (if current_client.surname.nil? then '' else current_client.surname end) %></strong></p>
                         <p class="text-left small"><%= current_client.email %></p>
                       </div>
                       <div class="col-xs-5 col-xs-height">

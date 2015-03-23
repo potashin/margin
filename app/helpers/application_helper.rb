@@ -19,6 +19,6 @@ module ApplicationHelper
 												h[k.to_sym] = "#{v.round} RUB"
 											end
 											h
-										end
+		end
 	end
 end
