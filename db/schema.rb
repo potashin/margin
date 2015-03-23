@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20150125020643) do
 # Could not dump table "client_types" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
 
-  create_table "client", force: :cascade do |t|
+  create_table "clients", force: :cascade do |t|
     t.string "login",              limit: 15
     t.string "name",               limit: 50
     t.string "surname",            limit: 50
@@ -51,7 +51,13 @@ ActiveRecord::Schema.define(version: 20150125020643) do
     t.string "client_type_id",     limit: 100, default: "KSUR"
   end
 
-  add_index "client", ["id", "login"], name: "sqlite_autoindex_clients_1", unique: true
+  add_index "clients", ["login"], name: "sqlite_autoindex_clients_1", unique: true
+
+# Could not dump table "item_per_collection_list" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+# Could not dump table "item_per_collection_total" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "items", force: :cascade do |t|
     t.integer "client_id",                        null: false
@@ -62,7 +68,40 @@ ActiveRecord::Schema.define(version: 20150125020643) do
     t.integer "quantity"
   end
 
-  add_index "items", ["id"], name: "sqlite_autoindex_items_1", unique: true
+# Could not dump table "marginal_prices" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+  create_table "order_price_types", force: :cascade do |t|
+    t.text "description"
+  end
+
+  add_index "order_price_types", ["id"], name: "sqlite_autoindex_order_price_types_1", unique: true
+
+  create_table "order_state_types", force: :cascade do |t|
+    t.text "description"
+  end
+
+  add_index "order_state_types", ["id"], name: "sqlite_autoindex_order_state_types_1", unique: true
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "client_id",                                           null: false
+    t.string  "asset_id",              limit: 20,                    null: false
+    t.string  "payment_instrument_id", limit: 20
+    t.string  "status_type_id",        limit: 20,                    null: false
+    t.float   "price"
+    t.integer "quantity"
+    t.string  "order_state_type_id",   limit: 1,  default: "o"
+    t.string  "order_price_type_id",   limit: 20, default: "MARKET"
+  end
+
+# Could not dump table "portfolio_items_totals" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+# Could not dump table "portfolios" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+# Could not dump table "price_spreads" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "status_types", force: :cascade do |t|
     t.text "description"

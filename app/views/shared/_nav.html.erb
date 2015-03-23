@@ -3,14 +3,12 @@
 
     <div class="row">
       <div class="col-xs-2">
-        <a class="navbar-brand" href="#">Margin Application</a>
+        <%= link_to "Margin Application", root_path , class: "navbar-brand" %>
       </div>
       <% if client_signed_in? %>
           <div class="col-xs-4">
             <div class="btn-group" role="menu">
-              <%= link_to "Главная", root_path , class: "btn btn-default" %>
-              <%= link_to "Портфель", items_path , class: "btn btn-default" %>
-              <%= link_to "Заявки", orders_path , class: "btn btn-default" %>
+              <%= link_to "Портфель", orders_path , class: "btn btn-default" %>
             </div>
           </div>
           <div class="col-xs-offset-3 col-xs-2">

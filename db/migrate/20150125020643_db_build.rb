@@ -10,7 +10,8 @@ class DbBuild < ActiveRecord::Migration
             , description TEXT
             , is_liquid BOOL DEFAULT 1
             , asset_type_id VARCHAR(10)
-            , FOREIGN KEY(asset_type_id) REFERENCES asset_types(id));"
+            , FOREIGN KEY(asset_type_id) REFERENCES asset_types(id)
+		        , CHECK( NOT(is_liquid = 0 AND asset_type_id = 'FX') ));"
 
 		execute "CREATE TABLE asset_discounts (
                   asset_id VARCHAR(20) NOT NULL
@@ -32,18 +33,27 @@ class DbBuild < ActiveRecord::Migration
 
 		execute "CREATE TABLE status_types (
                   id VARCHAR(20) NOT NULL PRIMARY KEY
+                , description TEXT
+		            , for_id VARCHAR(10)
+								, CHECK( for_id IN ('ORDER', 'ITEM') ));"
+
+		execute "CREATE TABLE order_price_types (
+                  id VARCHAR(20) NOT NULL PRIMARY KEY
+                , description TEXT);"
+
+		execute "CREATE TABLE order_state_types (
+                  id VARCHAR(20) NOT NULL PRIMARY KEY
                 , description TEXT);"
 
 
 		execute "CREATE TABLE clients (
                   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
-                , login VARCHAR(15) UNIQUE
+                , login VARCHAR(15) UNIQUE NOT NULL
                 , name VARCHAR(50)
                 , surname VARCHAR(50)
-                , email VARCHAR(50)
+                , email VARCHAR(50) NOT NULL
                 , encrypted_password VARCHAR(100) NOT NULL
                 , client_type_id VARCHAR(100) DEFAULT 'KSUR'
-				, PRIMARY KEY(id, login)
                 , FOREIGN KEY(client_type_id) REFERENCES client_types(id));"
 
 		execute "CREATE TABLE items (
@@ -52,12 +62,15 @@ class DbBuild < ActiveRecord::Migration
                 , asset_id VARCHAR(20) NOT NULL
                 , payment_instrument_id VARCHAR(20)
                 , status_type_id VARCHAR(20) NOT NULL
-                , quantity INT
+								, price FLOAT
+                , quantity INT NOT NULL
                 , FOREIGN KEY(client_id) REFERENCES client(id)
                 , FOREIGN KEY(status_type_id) REFERENCES status_types(id)
                 , FOREIGN KEY(asset_id) REFERENCES assets(id)
                 , FOREIGN KEY(payment_instrument_id) REFERENCES assets(id)
-								, CHECK( status_type_id NOT IN('REQ_ORDER','OBL_ORDER') ));"
+								, CHECK( status_type_id NOT IN('BUY','SELL') )
+						);"
+
 		execute "CREATE TABLE orders (
                   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
                 , client_id INT NOT NULL
@@ -65,12 +78,17 @@ class DbBuild < ActiveRecord::Migration
                 , payment_instrument_id VARCHAR(20)
                 , status_type_id VARCHAR(20) NOT NULL
                 , price FLOAT
-                , quantity INT
+                , quantity INT NOT NULL
+								, order_state_type_id VARCHAR(1) DEFAULT 'o'
+								, order_price_type_id VARCHAR(20)
                 , FOREIGN KEY(client_id) REFERENCES client(id)
+								, FOREIGN KEY(order_price_type_id) REFERENCES order_price_types(id)
+		            , FOREIGN KEY(order_state_type_id) REFERENCES order_state_types(id)
                 , FOREIGN KEY(status_type_id) REFERENCES status_types(id)
                 , FOREIGN KEY(asset_id) REFERENCES assets(id)
                 , FOREIGN KEY(payment_instrument_id) REFERENCES assets(id)
-                , CHECK(status_type_id IN('REQ_ORDER','OBL_ORDER') AND ((payment_instrument_id IS NULL AND price IS NULL) OR (payment_instrument_id IS NOT NULL AND price IS NOT NULL))));"
+								, CHECK( status_type_id IN('BUY','SELL') )
+                , CHECK( (order_price_type_id = 'MARKET' AND payment_instrument_id IS NULL AND price IS NULL) OR (order_price_type_id = 'LIMIT' AND payment_instrument_id IS NOT NULL AND price IS NOT NULL) ) );"
 
 # Views creation :
 
@@ -191,14 +209,15 @@ class DbBuild < ActiveRecord::Migration
 							WHERE a.is_liquid OR a.asset_type_id = 'FX'"
 
 		execute "CREATE VIEW portfolios AS
-							SELECT 	mp.client_id
+							SELECT 	c.id  AS client_id
 							      , SUM(mp.total) AS price
 							      , SUM(MAX(MAX(-mp.total*mp.DoMINUS,0),  MAX(mp.total*mp.DoPLUS,0))) AS m_initial
 							      , SUM(MAX(MAX(-mp.total*mp.DxMINUS,0),  MAX(mp.total*mp.DxPLUS,0))) AS m_minimum
 								, SUM(MAX(
 									mp.total - mp.S_plus + mp.ka_total + MAX(mp.S_plus*mp.DoPLUS,-mp.S_plus*mp.DoMINUS) + mp.additional_risk_plus,
 									mp.total - mp.S_minus - mp.kl_total + MAX(mp.S_minus*mp.DoPLUS,-mp.S_minus*mp.DoMINUS) + mp.additional_risk_plus)) AS m_order
-							FROM marginal_prices mp
+							FROM clients c
+							LEFT JOIN marginal_prices mp ON c.id = mp.client_id
 							GROUP BY mp.client_id"
 	end
 end

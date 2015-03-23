@@ -1,12 +1,19 @@
 Rails.application.routes.draw do
 
-	resources :orders
-	resources :items
-
 	root 'assets#index'
 
 	devise_for :client, controllers: {sessions: 'client/sessions', registrations: 'client/registrations'}
+	resources :orders do
+		member do
+			patch :withdraw, :execute_full, :execute_partial
+		end
+	end
+	resources :orders
+
+	resources :items
 	resources :assets, :path => '/'
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

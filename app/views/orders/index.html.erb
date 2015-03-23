@@ -1,31 +1,106 @@
-<table class="table">
-  <tr>
-    <th>Инструмент</th>
-    <th>Платежный инструмент</th>
-    <th>Цена</th>
-    <th>Количество</th>
-    <th>Тип заявки</th>
-    <th></th>
-  </tr>
-  <% @orders.each do |order| %>
-      <tr >
-        <td><%= order.asset_id %></td>
-        <td><%= order.payment_instrument_id %></td>
-        <td><%= order.price %></td>
-        <td><%= order.quantity %></td>
-        <td><%= order.status_type.description %></td>
-        <td>
-          <div class="btn-group" role="menu">
-            <%= link_to 'Edit', edit_order_path(order.id) , remote: true, class: 'btn btn-default' %>
-            <%= link_to 'Delete', order , :confirm => 'Are you sure?', :method =>:delete  , remote: true, class: 'btn btn-danger' %>
-          </div>
-        </td>
-      </tr>
-  <% end %>
-  <tr>
-    <td colspan="6">
-      <%= link_to 'New Order', new_order_path, remote: true, class: 'btn btn-default btn-block' %>
-    </td>
-  </tr>
-</table>
+<div id="short_info">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Состояние портфеля</h4>
+      <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'shared/portfolio'%>
+    </div>
+  </div>
+</div>
+
+<div id="items">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Портфель</h4>
+      <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <tr>
+          <th>Инструмент</th>
+          <th>Платежный инструмент</th>
+          <th>Количество</th>
+          <th>Тип</th>
+        </tr>
+        <% @items.each do |item| %>
+            <tr >
+              <td><%= item.asset_id %></td>
+              <td><%= item.payment_instrument_id %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.status_type.description %></td>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="orders">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Поручения</h4>
+      <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+    </div>
+    <div class="panel-body">
+      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <% @order_types.each  do |type| %>
+            <li class=" <%= if type.id == 'o' then 'active' end %>">
+              <a href="#<%= type.id %>" data-toggle="tab"><%= type.description %></a>
+            </li>
+        <% end %>
+      </ul>
+      <div class="tab-content">
+        <% @orders.each do |order_type, orders_by_type| %>
+            <div class="tab-pane <%= if order_type == 'o' then 'active' end %>" id="<%= order_type %>">
+              <table class="table ">
+                <tr >
+                  <th>Asset</th>
+                  <th>Payment instrument</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Type</th>
+                  <% if order_type  == 'o' %>
+                      <th colspan="2">Execution</th>
+                      <th>Edit</th>
+                  <% end %>
+                </tr>
+                <% orders_by_type.each do |order| %>
+                    <tr >
+                      <td><%= order.asset_id %></td>
+                      <td><%= order.payment_instrument_id %></td>
+                      <td><%= order.price %></td>
+                      <td><%= order.quantity %></td>
+                      <td><%= order.status_type.description %></td>
+                      <% if order_type  == 'o' %>
+                          <td colspan="2">
+                            <div class="btn-group" role="menu">
+                              <%= link_to 'Full', execute_full_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
+                              <% if order.quantity > 1 %>
+                                  <%= link_to 'Partial', execute_partial_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
+                              <% end %>
+                              <%= link_to 'Withdraw',  withdraw_order_path(order), method: :patch , remote: true, class: 'btn btn-danger' %>
+                            </div>
+                          </td>
+                          <td><%= link_to 'Edit', edit_order_path(order.id) , remote: true, class: 'btn btn-default' %></td>
+                      <% end %>
+                    </tr>
+                <% end %>
+                <tfoot>
+                <tr>
+                  <td colspan="8">
+                    <%= link_to 'New Order', new_order_path, remote: true, class: 'btn btn-default btn-block' %>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 

@@ -16,16 +16,39 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+$(document).ready( function() {
+        $("form#sign_in_client, form#sign_up_client").bind("ajax:success", function (event, xhr, settings) {
+            window.location = '/';
+        }).bind("ajax:error", function (event, xhr, settings, exceptions) {
+            var error_messages;
+            error_messages = xhr.responseJSON['error'] ? "<div class='alert alert-danger text-center'>" + xhr.responseJSON['error'] + "</div>" : xhr.responseJSON['errors'] ? $.map(xhr.responseJSON["errors"], function (v, k) {
+                return "<div class='alert alert-danger text-center'>" + k + " " + v + "</div>";
+            }).join("") : "<div class='alert alert-danger text-center'>Unknown error</div>";
+            return $(this).parents('.modal').find('.modal-footer').html(error_messages);
+        })
+        $("#order_tabs button").on("click", function () {
+            var type = $(this).attr("data-order-type")
+            $("table#orders tr:not(:first-child)[data-order-type=" + type + "]").show()
+            $("table#orders tr:not(:first-child):not([data-order-type=" + type + "])").hide()
+        })
+        $('.panel').on("click", function (e) {
+            var el = $(this).find('.panel-heading  span.clickable')
+            if (el.hasClass('panel-collapsed')) {
+                // expand the panel
+                el.parents('.panel').find('.panel-body').slideDown();
+                el.removeClass('panel-collapsed');
+                el.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+            }
+            else {
+                // collapse the panel
+                el.parents('.panel').find('.panel-body').slideUp();
+                el.addClass('panel-collapsed');
+                el.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+            }
+        });
+    }
 
-$(function() {
-    return $("form#sign_in_client, form#sign_up_client").bind("ajax:success", function(event, xhr, settings) {
-        window.location = '/';
-    }).bind("ajax:error", function(event, xhr, settings, exceptions) {
-        var error_messages;
-        error_messages = xhr.responseJSON['error'] ? "<div class='alert alert-danger text-center'>" + xhr.responseJSON['error'] + "</div>" : xhr.responseJSON['errors'] ? $.map(xhr.responseJSON["errors"], function(v, k) {
-            return "<div class='alert alert-danger text-center'>" + k + " " + v + "</div>";
-        }).join("") : "<div class='alert alert-danger text-center'>Unknown error</div>";
-        return $(this).parents('.modal').find('.modal-footer').html(error_messages);
-    });
-});
+)
+
+
 
