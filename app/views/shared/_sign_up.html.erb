@@ -3,28 +3,23 @@
     <div class="modal-content">
       <div class="modal-header">
         <button class="close" data-dismiss="modal">x</button>
-        <h2>Sign up</h2>
+        <h2>Регистрация</h2>
       </div>
 
       <div class="modal-body">
         <%= form_for(Client.new, as: :client, url: client_registration_path, remote: true, :html => { class: 'form-horizontal', id: 'sign_up_client', :'data-type' => 'json'}) do |f| %>
-            <div id="error_explanation">
-              <% flash.each do |name, msg| %>
-                  <%= content_tag :div, msg %>
-              <% end %>
-            </div>
 
             <div class="field form-group">
-              <%= f.label :name , class: 'col-sm-5 control-label' %>
+              <%= f.label :first_name , class: 'col-sm-5 control-label' %>
               <div class="col-sm-7">
-                <%= f.text_field :name, class: 'form-control' %>
+                <%= f.text_field :first_name, class: 'form-control' %>
               </div>
             </div>
 
             <div class="field form-group">
-              <%= f.label :surname , class: 'col-sm-5 control-label' %>
+              <%= f.label :last_name , class: 'col-sm-5 control-label' %>
               <div class="col-sm-7">
-                <%= f.text_field :surname, class: 'form-control' %>
+                <%= f.text_field :last_name, class: 'form-control' %>
               </div>
             </div>
 

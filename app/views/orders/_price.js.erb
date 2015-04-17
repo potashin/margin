@@ -1,0 +1,12 @@
+$('.modal-body').html("<%= j (render 'order_form') %>");
+$('.modal').modal('show');
+
+$(".modal form select[id=order_order_price_type_id]").on("change", function(){
+	if($(this).val() == 2){
+		$('.modal #price_options').show()
+	} else {
+		$('.modal #price_options').hide()
+		$('.modal #price_options input').val(null)
+		$(".modal #price_options select").prop("selectedIndex", -1);
+	}
+})

@@ -5,8 +5,8 @@ class AssetsController < ApplicationController
   end
 
   def index
-    @securities = @fx = Asset.all.joins(:asset_prices).where(asset_type_id: 'SECURITY').select('assets.*, asset_prices.last,asset_prices.payment_instrument_id')
-    @fx = Asset.all.joins(:asset_prices).where(asset_type_id: 'FX').select('assets.*, asset_prices.last,asset_prices.payment_instrument_id')
+    @securities = Asset.all.joins(:asset_prices).where(asset_type_id: 1).select('assets.*, asset_prices.last,asset_prices.payment_instrument_id')
+    @fx = Asset.all.joins(:asset_prices).where(asset_type_id: 2).select('assets.*, asset_prices.last,asset_prices.payment_instrument_id')
   end
 
   def show

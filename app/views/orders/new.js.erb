@@ -1,12 +1,3 @@
-$('.modal-body').html("<%= j (render 'order_form') %>");
-$('.modal-header h2').text('New order');
-$('.modal').modal('show');
-$(".modal form select[id=order_order_price_type_id]").on("change", function(){
-	if($(this).val() == 'LIMIT'){
-		$('.modal #price_options').show()
-	} else {
-		$('.modal #price_options').hide()
-		$('.modal #price_options input').val(null)
-		$(".modal #price_options select").prop("selectedIndex", -1);
-	}
-})
+<%= render partial: 'price' %>
+
+$('.modal-header h2').text('Новое поручение');

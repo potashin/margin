@@ -1,17 +1,17 @@
 
-<h2>Log in</h2>
+<h2>Вход в систему</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: 'form-horizontal'}) do |f| %>
   <div class="field form-group">
-    <%= f.label :login , class: 'col-sm-4 control-label' %>
-    <div class="col-sm-8">
+    <%= f.label :login, 'Логин' , class: 'col-sm-4 control-label' %>
+    <div class="col-sm-5">
         <%= f.text_field :login, autofocus: true, class: 'form-control' %>
     </div>
   </div>
 
   <div class="field form-group">
-    <%= f.label :password , class: 'col-sm-4 control-label'  %>
-    <div class="col-sm-8">
+    <%= f.label :password , 'Пароль' , class: 'col-sm-4 control-label'  %>
+    <div class="col-sm-5">
       <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
 	</div>
   </div>
@@ -23,8 +23,8 @@
   <% end %>
 
   <div class="actions form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <%= f.submit "Sign in", class: 'btn btn-success'  %>
+    <div class="col-sm-offset-4 col-sm-4">
+        <%= f.submit "Войти", class: 'btn btn-success'  %>
     </div>
   </div>
 <% end %>

@@ -11,102 +11,130 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125020643) do
+ActiveRecord::Schema.define(version: 20150404174157) do
 
-  create_table "asset_discounts", primary_key: "asset_id", force: :cascade do |t|
-    t.string "client_type_id", limit: 10, null: false
-    t.float  "DoPLUS"
-    t.float  "DoMINUS"
-    t.float  "DxPLUS"
-    t.float  "DxMINUS"
+  create_table "asset_discounts", force: :cascade do |t|
+    t.integer  "asset_id"
+    t.integer  "client_type_id"
+    t.float    "d0_plus",        null: false
+    t.float    "d0_minus",       null: false
+    t.float    "dx_plus",        null: false
+    t.float    "dx_minus",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  add_index "asset_discounts", ["asset_id", "client_type_id"], name: "sqlite_autoindex_asset_discounts_1", unique: true
+  add_index "asset_discounts", ["asset_id", "client_type_id"], name: "index_asset_discounts_on_asset_id_and_client_type_id", unique: true
 
-  create_table "asset_prices", primary_key: "asset_id", force: :cascade do |t|
-    t.string "payment_instrument_id", limit: 20, null: false
-    t.float  "last"
+  create_table "asset_prices", force: :cascade do |t|
+    t.integer  "asset_id"
+    t.integer  "payment_instrument_id"
+    t.float    "last",                  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
-  add_index "asset_prices", ["asset_id", "payment_instrument_id"], name: "sqlite_autoindex_asset_prices_1", unique: true
+  add_index "asset_prices", ["asset_id", "payment_instrument_id"], name: "index_asset_prices_on_asset_id_and_payment_instrument_id", unique: true
 
   create_table "asset_types", force: :cascade do |t|
-    t.text "description"
+    t.string   "name",        limit: 20
+    t.text     "description", limit: 100
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  add_index "asset_types", ["id"], name: "sqlite_autoindex_asset_types_1", unique: true
+  add_index "asset_types", ["name"], name: "index_asset_types_on_name", unique: true
 
-# Could not dump table "assets" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "assets", force: :cascade do |t|
+    t.string   "name",          limit: 20,                 null: false
+    t.text     "description",   limit: 100
+    t.integer  "asset_type_id"
+    t.boolean  "liquid",                    default: true
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
 
-# Could not dump table "client_types" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  add_index "assets", ["name"], name: "index_assets_on_name", unique: true
+
+  create_table "client_types", force: :cascade do |t|
+    t.string "name",        limit: 10, null: false
+    t.text   "description", limit: 50
+  end
+
+  add_index "client_types", ["name"], name: "index_client_types_on_name", unique: true
 
   create_table "clients", force: :cascade do |t|
-    t.string "login",              limit: 15
-    t.string "name",               limit: 50
-    t.string "surname",            limit: 50
-    t.string "email",              limit: 50
-    t.string "encrypted_password", limit: 100,                  null: false
-    t.string "client_type_id",     limit: 100, default: "KSUR"
+    t.string   "login",              limit: 20,              null: false
+    t.string   "first_name",         limit: 20
+    t.string   "last_name",          limit: 30
+    t.string   "email",              limit: 40,              null: false
+    t.string   "encrypted_password", limit: 100,             null: false
+    t.integer  "client_type_id",                 default: 1
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
-  add_index "clients", ["login"], name: "sqlite_autoindex_clients_1", unique: true
+  add_index "clients", ["email"], name: "index_clients_on_email", unique: true
+  add_index "clients", ["login"], name: "index_clients_on_login", unique: true
 
-# Could not dump table "item_per_collection_list" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "item_status_types", force: :cascade do |t|
+    t.string   "name",        limit: 20, null: false
+    t.text     "description", limit: 50
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
-# Could not dump table "item_per_collection_total" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  add_index "item_status_types", ["name"], name: "index_item_status_types_on_name", unique: true
 
   create_table "items", force: :cascade do |t|
-    t.integer "client_id",                        null: false
-    t.string  "asset_id",              limit: 20, null: false
-    t.string  "payment_instrument_id", limit: 20
-    t.string  "status_type_id",        limit: 20, null: false
-    t.float   "price"
-    t.integer "quantity"
+    t.integer  "client_id"
+    t.integer  "asset_id"
+    t.float    "quantity"
+    t.integer  "item_status_type_id"
+    t.boolean  "completed",           default: false
+    t.integer  "order_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
-
-# Could not dump table "marginal_prices" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
 
   create_table "order_price_types", force: :cascade do |t|
-    t.text "description"
+    t.string   "name",        limit: 20, null: false
+    t.text     "description", limit: 50
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "order_price_types", ["id"], name: "sqlite_autoindex_order_price_types_1", unique: true
+  add_index "order_price_types", ["name"], name: "index_order_price_types_on_name", unique: true
 
   create_table "order_state_types", force: :cascade do |t|
-    t.text "description"
+    t.string   "name",        limit: 20, null: false
+    t.text     "description", limit: 50
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "order_state_types", ["id"], name: "sqlite_autoindex_order_state_types_1", unique: true
+  add_index "order_state_types", ["name"], name: "index_order_state_types_on_name", unique: true
+
+  create_table "order_status_types", force: :cascade do |t|
+    t.string   "name",        limit: 20, null: false
+    t.text     "description", limit: 50
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "order_status_types", ["name"], name: "index_order_status_types_on_name", unique: true
 
   create_table "orders", force: :cascade do |t|
-    t.integer "client_id",                                           null: false
-    t.string  "asset_id",              limit: 20,                    null: false
-    t.string  "payment_instrument_id", limit: 20
-    t.string  "status_type_id",        limit: 20,                    null: false
-    t.float   "price"
-    t.integer "quantity"
-    t.string  "order_state_type_id",   limit: 1,  default: "o"
-    t.string  "order_price_type_id",   limit: 20, default: "MARKET"
+    t.integer  "client_id"
+    t.integer  "asset_id"
+    t.integer  "payment_instrument_id", default: 3
+    t.integer  "order_status_type_id"
+    t.integer  "order_state_type_id",   default: 1
+    t.integer  "order_price_type_id"
+    t.float    "price"
+    t.integer  "quantity"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
-
-# Could not dump table "portfolio_items_totals" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
-
-# Could not dump table "portfolios" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
-
-# Could not dump table "price_spreads" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
-
-  create_table "status_types", force: :cascade do |t|
-    t.text "description"
-  end
-
-  add_index "status_types", ["id"], name: "sqlite_autoindex_status_types_1", unique: true
 
 end

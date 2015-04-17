@@ -10,15 +10,6 @@ module ApplicationHelper
 	end
 
 	def portfolio
-		@portfolio ||= Portfolio.find_by(client_id: current_client.id)
-			               .attributes
-			               .inject({}) do |h, (k, v)|
-											if v.nil?
-												h[k.to_sym] = 'Не определено'
-											else
-												h[k.to_sym] = "#{v.round} RUB"
-											end
-											h
-		end
+		@portfolio = current_client.get_item_portfolio
 	end
 end

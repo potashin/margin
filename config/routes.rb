@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-	root 'assets#index'
+	root 'orders#index'
 
 	devise_for :client, controllers: {sessions: 'client/sessions', registrations: 'client/registrations'}
 	resources :orders do
@@ -8,10 +8,6 @@ Rails.application.routes.draw do
 			patch :withdraw, :execute_full, :execute_partial
 		end
 	end
-	resources :orders
-
-	resources :items
-	resources :assets, :path => '/'
 
 
 

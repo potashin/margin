@@ -1,16 +1,4 @@
-$('.modal-body').html("<%= j (render 'order_form') %>");
-$('.modal-header h2').text('Edit order');
-$('.modal').modal('show');
 
-$(".modal-body").bind("ajax:success", function(event, xhr, settings) {
-	var message = "<div class='alert in alert-" +  xhr.class + " success text-center'>" + xhr.message + "</div>";
-	$(this).parents('.modal').find('.modal-footer').html(message);
-	$(".modal-footer .alert").delay(3000).slideUp(500)
+<%= render partial: 'price' %>
 
-}).bind("ajax:error", function(event, xhr, settings, exceptions) {
-	var error_messages;
-	error_messages = xhr.responseJSON['error'] ? "<div class='alert alert-danger text-center'>" + xhr.responseJSON['error'] + "</div>" : xhr.responseJSON['errors'] ? $.map(xhr.responseJSON["errors"], function(v, k) {
-		return "<div class='alert alert-danger text-center'>" + k + " " + v + "</div>";
-	}).join("") : "<div class='alert alert-danger text-center'>Unknown error</div>";
-	return $(this).parents('.modal').find('.modal-footer').html(error_messages);
-});
+$('.modal-header h2').text('Редактировать поручение');

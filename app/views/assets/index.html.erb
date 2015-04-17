@@ -7,7 +7,7 @@
     </tr>
     <% @securities.each do |asset| %>
         <tr >
-          <td><%= link_to asset.id, asset.id , class: 'btn btn-link' %></td>
+          <td><%= link_to asset.name, asset , class: 'btn btn-link' %></td>
           <td><%= asset.last.round.to_s << ' ' << asset.payment_instrument_id %></td>
         </tr>
     <% end %>
@@ -20,7 +20,7 @@
     </tr>
     <% @fx.each do |asset| %>
         <tr >
-          <td><%= link_to "#{asset.id} – #{asset.payment_instrument_id}", asset.id , class: 'btn btn-link' %></td>
+          <td><%= link_to "#{asset.name} – #{asset.payment_instrument_id}", asset , class: 'btn btn-link' %></td>
           <td><%= asset.last.round(2) %> </td>
         </tr>
     <% end %>

@@ -24,9 +24,22 @@ a[data-toggle="tab"]
   font-weight: 400
 
 
-
 #main-container
   padding-top: 90px
+
+html
+  position: relative
+  min-height: 100%
+body
+  /* Margin bottom by footer height */
+  padding-bottom: 40px
+
+footer
+  position: absolute
+  bottom: 0
+  width: 100%
+  /* Set the fixed height of the footer here */
+  height: 40px
 
 nav > div > .row
   height: 50px
@@ -63,7 +76,8 @@ h4.panel-title
 div.panel-heading
   padding: 20px
   background: #ffffff !important
-
-
-.panel
   cursor: pointer
+
+div.panel-body
+  display: none
+

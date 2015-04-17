@@ -26,13 +26,20 @@ $(document).ready( function() {
             }).join("") : "<div class='alert alert-danger text-center'>Unknown error</div>";
             return $(this).parents('.modal').find('.modal-footer').html(error_messages);
         })
-        $("#order_tabs button").on("click", function () {
-            var type = $(this).attr("data-order-type")
-            $("table#orders tr:not(:first-child)[data-order-type=" + type + "]").show()
-            $("table#orders tr:not(:first-child):not([data-order-type=" + type + "])").hide()
+        $("a[data-remote=true]").bind("ajax:success", function (event, xhr, settings) {
+            var message = "<div class='alert in alert-" +  xhr.class + " success text-center'>" + xhr.message + "</div>";
+            $(this).parents('.modal').find('.modal-footer').html(message);
+            $("#notification").delay(3000).slideUp(500)
+        }).bind("ajax:error", function (event, xhr, settings, exceptions) {
+            var error_messages;
+            error_messages = xhr.responseJSON['error'] ? "<div class='alert alert-danger text-center'>" + xhr.responseJSON['error'] + "</div>" : xhr.responseJSON['errors'] ? $.map(xhr.responseJSON["errors"], function (v, k) {
+                return "<div class='alert alert-danger text-center'>" + k + " " + v + "</div>";
+            }).join("") : "<div class='alert alert-danger text-center'>Unknown error</div>";
+            return $('#notification').html(error_messages);
         })
-        $('.panel').on("click", function (e) {
-            var el = $(this).find('.panel-heading  span.clickable')
+
+        $('.panel .panel-heading').on("click", function (e) {
+            var el = $(this).find('span')
             if (el.hasClass('panel-collapsed')) {
                 // expand the panel
                 el.parents('.panel').find('.panel-body').slideDown();
@@ -46,6 +53,7 @@ $(document).ready( function() {
                 el.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
             }
         });
+
     }
 
 )
