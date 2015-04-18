@@ -16,6 +16,9 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
+.modal-dialog
+  margin: 60px auto
+
 .text-muted
   text-align: center
 
@@ -25,7 +28,7 @@ a[data-toggle="tab"]
 
 
 #main-container
-  padding-top: 90px
+  padding-top: 130px
 
 html
   position: relative
@@ -81,3 +84,16 @@ div.panel-heading
 div.panel-body
   display: none
 
+#notification
+  position: fixed
+  z-index: 9999
+  margin-left: 20px
+  top: 60px
+
+#notification .alert
+  -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4)
+  -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4)
+  box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4)
+
+#notification div.alert > span
+  padding: 0 100px

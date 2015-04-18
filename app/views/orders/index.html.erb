@@ -39,7 +39,7 @@
       </ul>
       <div class="tab-content">
 	        <% @items.each do |item_type, item_collection| %>
-	            <div class="tab-pane <%= if item_type.to_i == 3 then 'active' end %>" id="<%= item_type %>_item">
+	            <div class="tab-pane <%= if item_type.to_i == 3 then 'active' end %>" id="<%= item_type %>_items">
 	              <table class="table ">
 	                <tr>
 	                  <th>Инструмент</th>

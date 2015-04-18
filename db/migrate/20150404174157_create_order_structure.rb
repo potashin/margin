@@ -22,14 +22,14 @@ class CreateOrderStructure < ActiveRecord::Migration
 	  add_index :order_status_types, :name, unique: true
 
 	  create_table :orders do |t|
-		  t.integer :client_id
-		  t.integer :asset_id
+		  t.integer :client_id, null: false
+		  t.integer :asset_id, null: false
 		  t.integer :payment_instrument_id, default: 3
-		  t.integer :order_status_type_id
+		  t.integer :order_status_type_id, null: false
 		  t.integer :order_state_type_id, default: 1
-		  t.integer :order_price_type_id
+		  t.integer :order_price_type_id, null: false
 		  t.float :price
-		  t.integer :quantity
+		  t.integer :quantity, null: false
 		  t.timestamps null: false
 	  end
 	  add_foreign_key :orders, :asset_prices, column: :asset_id, primary_key: :asset_id

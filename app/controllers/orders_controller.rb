@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 	before_action :get_orders_by_state, only: [:index, :create]
 	before_action :get_order, only: [:edit, :update, :withdraw, :execute_full, :execute_partial]
 
-	#respond_to :html, :js
+	respond_to :html, :js
 
 	def new
 		@order = current_client.orders.new
@@ -46,10 +46,11 @@ class OrdersController < ApplicationController
 
 		def raise_notification message
 			if @code
-				render json: {data: @order.to_json , message: message, class: 'success'}
+				flash.now[:success] = message
 			else
-				render json: {message: @order.errors.full_messages, class: 'error'}
+				flash.now[:error] = @order.errors.full_messages
 			end
+			render partial: 'orders/notification'
 		end
 
 		def get_order

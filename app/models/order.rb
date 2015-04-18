@@ -6,7 +6,13 @@ class Order < ActiveRecord::Base
 							class_name: 'AssetPrice', foreign_key: 'payment_instrument_id', primary_key: 'asset_id'
 
 	belongs_to :market,
-							-> { where 'orders.payment_instrument_id = asset_prices.payment_instrument_id' },
+	           -> (order){
+			           if order.is_a? JoinDependency::JoinAssociation
+				           where 'asset_prices.payment_instrument_id = orders.payment_instrument_id'
+			           else
+				           where payment_instrument_id: order.payment_instrument_id
+			           end
+	           },
 							class_name: 'AssetPrice', foreign_key: 'asset_id', primary_key: 'asset_id'
 
 	belongs_to :asset, class_name: 'Asset'
@@ -31,7 +37,8 @@ class Order < ActiveRecord::Base
 	end
 
 	def execute
-		self.update_attribute(:order_state_type_id, 3)
+		#self.update_attribute(:order_state_type_id, 3)
+		self
 	end
 
 	def order_to_item (quantity = nil)
@@ -40,8 +47,10 @@ class Order < ActiveRecord::Base
 			unless quantity.nil?
 				Order.create(self.attributes.merge(id: nil, quantity: self.quantity - quantity))
 				self.quantity = quantity
-				self.execute
 			end
+
+
+			if self.price.nil? then self.price = self.market.last * self.currency.last end
 
 			# Each executed order is split into requirement and obligation
 			item_attr = [{asset_id: self.asset_id, quantity: self.quantity },
@@ -52,6 +61,8 @@ class Order < ActiveRecord::Base
 			Hash[item_types.zip(item_attr)].each do |type, attr|
 				self.client.items.create(attr.merge({item_status_type_id: type, order_id: self.id}))
 			end
+
+			self.execute
 		end
 	end
 end
