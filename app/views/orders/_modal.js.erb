@@ -1,6 +1,6 @@
 $('.modal-body').html("<%= j (render 'order_form') %>");
-$('.modal').modal('show');
 
+$('.modal-header h2').text("<%= t("helpers.submit.#{action_name.to_s}" , model: t('activerecord.models.order')) %>");
 $(".modal form select[id=order_order_price_type_id]").on("change", function(){
 	if($(this).val() == 2){
 		$('.modal #price_options').show()
@@ -10,3 +10,5 @@ $(".modal form select[id=order_order_price_type_id]").on("change", function(){
 		$(".modal #price_options select").prop("selectedIndex", -1);
 	}
 })
+
+$('.modal').modal('show');

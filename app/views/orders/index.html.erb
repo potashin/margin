@@ -1,17 +1,7 @@
-<% if false %>
-    <% current_client.get_item_portfolio.each do |k, v| %>
-        <pre><%= "#{k}" %>
-          <% v.each do |key, val| %>
-          <%= "#{key} : #{val}"%>
-      <% end %>
-    </pre>
-    <% end %>
-<% end %>
-
 <div >
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title">Состояние</h4>
+      <h4 class="panel-title"><%= t '.state' %></h4>
       <span class="pull-right panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
     </div>
     <div class="panel-body">
@@ -21,12 +11,10 @@
     </div>
   </div>
 </div>
-
-
 <div >
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title">Содержимое</h4>
+      <h4 class="panel-title"><%= t '.contents'%></h4>
       <span class="pull-right panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
     </div>
     <div class="panel-body">
@@ -38,31 +26,38 @@
         <% end %>
       </ul>
       <div class="tab-content">
-	        <% @items.each do |item_type, item_collection| %>
-	            <div class="tab-pane <%= if item_type.to_i == 3 then 'active' end %>" id="<%= item_type %>_items">
-	              <table class="table ">
-	                <tr>
-	                  <th>Инструмент</th>
-	                  <th>Количество</th>
-	                </tr>
-	                <% item_collection.each do |item| %>
+        <% @item_types.each do |type| %>
+            <div class="tab-pane <%= if type.id == 3 then 'active' end %>" id="<%= type.id %>_item">
+              <table class="table ">
+                <% if @items.key?(type.id)  %>
+                    <tr>
+                      <th><%= t 'activerecord.attributes.order.asset_id' %></th>
+                      <th><%= t 'activerecord.attributes.order.quantity' %></th>
+                    </tr>
+                    <% @items[type.id].each do |item| %>
 	                    <tr >
 	                      <td><%= item.asset.name %></td>
 	                      <td><%= item.quantity %></td>
 	                    </tr>
 	                <% end %>
-	              </table>
-	            </div>
-	        <% end %>
+                <% else  %>
+                  <tr>
+                    <td>
+                      <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
+                    </td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
 <div>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title">Поручения</h4>
+      <h4 class="panel-title"><%= t '.orders' %></h4>
       <span class="pull-right panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
     </div>
     <div class="panel-body">
@@ -74,53 +69,54 @@
         <% end %>
       </ul>
       <div class="tab-content">
-        <% @orders.each do |order_type, orders_by_type| %>
-            <div class="tab-pane <%= if order_type.to_i == 1 then 'active' end %>" id="<%= order_type %>_order">
+        <% @order_types.each do |type| %>
+            <div class="tab-pane <%= if type.id == 1 then 'active' end %>" id="<%= type.id %>_order">
               <table class="table ">
-                <tr >
-                  <th>Инструмент</th>
-                  <th>Платежный инструмент</th>
-                  <th>Цена</th>
-                  <th>Количество</th>
-                  <th>Тип</th>
-                  <% if order_type  == '1' %>
-                      <th colspan="2">Опции</th>
-                      <th></th>
-                  <% end %>
-                </tr>
-                <% orders_by_type.each do |order| %>
+	              <% if @orders.key?(type.id)  %>
                     <tr >
-                      <td><%= order.asset.name %></td>
-                      <td><%= order.payment_instrument.name %></td>
-                      <td><%= order.price %></td>
-                      <td><%= order.quantity %></td>
-                      <td><%= order.order_status_type.description %></td>
-                      <% if order_type  == '1' %>
-                          <td colspan="2">
-                            <div class="btn-group" role="menu">
-                              <%= link_to 'Полностью', execute_full_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
-                              <% if order.quantity > 1 %>
-                                  <%= link_to 'Частично', execute_partial_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
-                              <% end %>
-                              <%= link_to 'Снять',  withdraw_order_path(order), method: :patch , remote: true, class: 'btn btn-danger' %>
-                            </div>
-                          </td>
-                          <td><%= link_to 'Редактировать', edit_order_path(order.id) , remote: true, class: 'btn btn-default' %></td>
+                      <th><%= t 'activerecord.attributes.order.asset_id' %></th>
+                      <th><%= t 'activerecord.attributes.order.payment_instrument_id' %></th>
+                      <th><%= t 'activerecord.attributes.order.price' %></th>
+                      <th><%= t 'activerecord.attributes.order.quantity' %></th>
+                      <th><%= t 'activerecord.attributes.order.order_status_type_id' %></th>
+                      <% if type.id  == 1 %>
+                          <th colspan="2"><%= t '.options' %></th>
+                          <th></th>
                       <% end %>
                     </tr>
-                <% end %>
-                <tfoot>
-                <tr>
-                  <td colspan="8">
-                    <%= link_to 'Новое поручение', new_order_path, remote: true, class: 'btn btn-default btn-block' %>
-                  </td>
-                </tr>
-
-                </tfoot>
+                    <% @orders[type.id].each do |order| %>
+                        <tr >
+                          <td><%= order.asset.name %></td>
+                          <td><%= order.payment_instrument.name %></td>
+                          <td><%= order.price %></td>
+                          <td><%= order.quantity %></td>
+                          <td><%= order.order_status_type.description %></td>
+                          <% if type.id  == 1 %>
+                              <td colspan="2">
+                                <div class="btn-group" role="menu">
+                                  <%= link_to t('.full'), execute_full_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
+                                  <% if order.quantity > 1 %>
+                                      <%= link_to t('.partial') , execute_partial_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
+                                  <% end %>
+                                  <%= link_to t('.withdraw'),  withdraw_order_path(order), method: :patch , remote: true, class: 'btn btn-danger' %>
+                                </div>
+                              </td>
+                              <td><%= link_to t('.edit'), edit_order_path(order) , remote: true, class: 'btn btn-default' %></td>
+                          <% end %>
+                        </tr>
+                    <% end %>
+	              <% else  %>
+	                <tr>
+	                  <td>
+	                    <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
+	                  </td>
+	                </tr>
+	              <% end %>
               </table>
             </div>
         <% end %>
       </div>
+      <%= link_to t('.new'), new_order_path, remote: true, class: 'btn btn-default btn-block' %>
     </div>
   </div>
 </div>

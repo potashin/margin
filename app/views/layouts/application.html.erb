@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Margin</title>
+  <title><%= t '.title' %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -14,7 +14,7 @@
   <div id="notification">
     <% flash.each do |type, message| %>
         <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
           <%= message %>
         </div>
     <% end %>
@@ -45,7 +45,7 @@
 <% end %>
 <footer >
   <div class="container-fluid">
-    <p class="text-muted">Margin Application © MOEX 2014-2015</p>
+    <p class="text-muted"><%= t '.copyright' %></p>
   </div>
 </footer>
 </body>

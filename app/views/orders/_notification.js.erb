@@ -1,9 +1,9 @@
-var nots = '';
+var notifications = '';
 <% flash.each do |type, message| %>
-	nots += '<div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">' +
-		'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' +
-		'<span><%= message %></span>' +
-	'</div>'
+	notifications += '<div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">' +
+						'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' +
+						'<span><%= message %></span>' +
+					'</div>'
 <% end %>
 
-$("#notification").html(nots);
+$("#notification").html(notifications);

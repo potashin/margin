@@ -8,10 +8,16 @@ class OrdersController < ApplicationController
 
 	def new
 		@order = current_client.orders.new
+		render partial: 'orders/modal'
+	end
+
+	def edit
+		render partial: 'orders/modal'
 	end
 
 	def create
-		@code = current_client.orders.new(order_params).save
+		@order = current_client.orders.new(order_params)
+		@code = @order.save
 		raise_notification 'Создано новое поручение'
 	end
 
@@ -40,15 +46,15 @@ class OrdersController < ApplicationController
 		def get_orders_by_state
 			@items = current_client.items.get_items
 			@orders = current_client.orders.get_orders
-			@order_types = OrderStateType.where(id: @orders.keys).all
-			@item_types = ItemStatusType.where(id: @items.keys).all
+			@order_types = OrderStateType.all
+			@item_types = ItemStatusType.all
 		end
 
 		def raise_notification message
 			if @code
 				flash.now[:success] = message
 			else
-				flash.now[:error] = @order.errors.full_messages
+				flash.now[:error] = @order.errors.full_messages[0]
 			end
 			render partial: 'orders/notification'
 		end

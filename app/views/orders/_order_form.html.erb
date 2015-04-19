@@ -1,37 +1,37 @@
 <%= form_for @order, html: {class: 'form-horizontal'}, remote: true do |f|   %>
     <div class="field form-group">
-      <%= f.label :order_status_type_id, 'Тип поручения', class: 'col-sm-4 control-label' %>
+      <%= f.label :order_status_type_id, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
         <%= f.collection_select :order_status_type_id, OrderStatusType.all, :id, :description, {disabled: 'disabled' } %>
       </div>
     </div>
     <div class="field form-group">
-      <%= f.label :asset_id, 'Актив', class: 'col-sm-4 control-label' %>
+      <%= f.label :asset_id, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
         <%= f.collection_select :asset_id, Asset.all, :id, :name %>
       </div>
     </div>
     <div class="field form-group">
-      <%= f.label :quantity, 'Количество', class: 'col-sm-4 control-label' %>
+      <%= f.label :quantity, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
         <%= f.text_field  :quantity, class: 'form-control' %>
       </div>
     </div>
     <div class="field form-group">
-      <%= f.label :order_price_type_id, 'Тип цены', class: 'col-sm-4 control-label' %>
+      <%= f.label :order_price_type_id, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
         <%= f.collection_select  :order_price_type_id, OrderPriceType.all, :id, :description %>
       </div>
     </div>
 	<div id="price_options" style="display: <%= (@order.order_price_type_id.nil? or @order.order_price_type_id == 1) ? 'none': 'block' %>">
 	  <div class="field form-group">
-	    <%= f.label :price, 'Цена', class: 'col-sm-4 control-label' %>
+	    <%= f.label :price, class: 'col-sm-4 control-label' %>
 	    <div class="col-sm-8">
 	      <%= f.text_field  :price, class: 'form-control' %>
 	    </div>
 	  </div>
 	  <div class="field form-group">
-	    <%= f.label :payment_instrument_id, 'Платежный инструмент', class: 'col-sm-4 control-label' %>
+	    <%= f.label :payment_instrument_id, class: 'col-sm-4 control-label' %>
 	    <div class="col-sm-8">
 	      <%= f.collection_select :payment_instrument_id, Asset.where(asset_type_id: 2).all, :id, :name , include_blank: true %>
 	    </div>
@@ -39,7 +39,7 @@
 	</div>
     <div class="actions form-group">
       <div class="col-sm-offset-4 col-sm-8">
-        <%= f.submit 'Отправить', class: 'btn btn-success' %>
+        <%= f.submit class: 'btn btn-success' %>
       </div>
     </div>
 <% end %>

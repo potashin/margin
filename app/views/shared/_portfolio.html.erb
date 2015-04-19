@@ -1,18 +1,8 @@
 <table class="table">
-  <tr>
-    <td>Стоимость портфеля: </td>
-    <td><strong><%= portfolio[:total] %></strong></td>
-  </tr>
-  <tr>
-    <td>Начальная маржа: </td>
-    <td><strong><%= portfolio[:m_initial] %></strong></td>
-  </tr>
-  <tr>
-    <td>Минимальная маржа: </td>
-    <td><strong><%= portfolio[:m_minimum] %></strong></td>
-  </tr>
-  <tr>
-    <td>Скорректированная маржа: </td>
-    <td><strong><%= portfolio[:m_order] %></strong></td>
-  </tr>
+  <% portfolio.each do |key, value| %>
+      <tr>
+        <td><%= t(".#{key}")%> :</td>
+        <td><strong><%= value %></strong></td>
+      </tr>
+  <% end %>
 </table>
