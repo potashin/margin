@@ -13,7 +13,7 @@ class CreateItemStructure < ActiveRecord::Migration
 	    t.integer :asset_id
 	    t.float :quantity
 	    t.integer :item_status_type_id
-	    t.boolean :completed, default: 0
+	    t.integer :completed, default: 0
 	    t.integer :order_id
 	    t.timestamps null: false
     end

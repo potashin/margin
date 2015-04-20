@@ -82,7 +82,7 @@ class Client < ActiveRecord::Base
 
 				# Batch assets in collections
 				@positions[v[:asset_id]][:"#{col1}_quantity"] += v[:quantity]
-				@positions[v[:payment_instrument_id]][:"#{col2}_quantity"] += v[:quantity] * order_price
+				@positions[v[:payment_instrument_id]][:"#{col2}_quantity"] += v[:quantity] * order_price / v[:currency]
 				@positions[v[:asset_id]][:"#{col1}_total"] += v[:quantity] * order_price
 				@positions[v[:payment_instrument_id]][:"#{col2}_total"] += v[:quantity] * order_price
 
@@ -136,8 +136,6 @@ class Client < ActiveRecord::Base
 			# Minimum margin
 			@portfolio[:m_minimum] += [[-data[:total] * discounts[asset][:dx_minus], 0].max,
 			                           [ data[:total] * discounts[asset][:dx_plus], 0].max].max
-
-
 
 			# Initial margin adjusted with orders
 			@portfolio[:m_order] += [data[:total_risk_plus], data[:total_risk_minus]].max

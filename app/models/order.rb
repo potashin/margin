@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
 	belongs_to :market,
 	           -> (order) do
 			           if order.is_a? JoinDependency::JoinAssociation
-				           where 'asset_prices.payment_instrument_id = orders.payment_instrument_id'
+				           where '"asset_prices"."payment_instrument_id" = "orders"."payment_instrument_id"'
 			           else
 				           where payment_instrument_id: order.payment_instrument_id
 			           end
