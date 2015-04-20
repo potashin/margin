@@ -4,7 +4,7 @@ class Client < ActiveRecord::Base
 	has_many :orders
 	has_many :asset_discounts, through: :client_type
 
-	devise :database_authenticatable, :registerable#, :validatable
+	devise :database_authenticatable, :registerable, :validatable
 
 
 	def get_item_portfolio
