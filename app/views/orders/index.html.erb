@@ -22,11 +22,17 @@
                         <tr>
                           <th><%= t 'activerecord.attributes.order.asset_id' %></th>
                           <th><%= t 'activerecord.attributes.order.quantity' %></th>
+                          <% if type.id == 3 %>
+                              <th></th>
+                          <% end %>
                         </tr>
                         <% @items[type.id].each do |item| %>
                             <tr >
                               <td><%= item.asset.name %></td>
                               <td><%= item.quantity.round(1) %></td>
+                              <% if type.id == 3 %>
+                                  <td><%= link_to t('.delete_position'), item, method: :delete, remote: true , class: 'btn btn-danger'%></td>
+                              <% end %>
                             </tr>
                         <% end %>
                     <% else  %>

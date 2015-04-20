@@ -42,10 +42,7 @@ $(document).ready( function() {
                 el.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
             }
         });
-
-    }
-
-)
+    })
 
 
 

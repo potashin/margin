@@ -6,6 +6,7 @@ class Client < ActiveRecord::Base
 
 	devise :database_authenticatable, :registerable#, :validatable
 
+
 	def get_item_portfolio
 
 		# Hash for storing portfolio items' quantity and market price

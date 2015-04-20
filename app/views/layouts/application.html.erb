@@ -17,13 +17,13 @@
 	        <% messages.each do |m| %>
 		        <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">
 		          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-		          <%= m %>
+		          <span><%= m %></span>
 		        </div>
 	        <% end %>
         <% else %>
             <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-              <%= messages %>
+              <span><%= messages %></span>
             </div>
         <% end %>
     <% end %>

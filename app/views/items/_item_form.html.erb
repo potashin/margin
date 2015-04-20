@@ -1,0 +1,19 @@
+<%= form_for @item, html: {class: 'form-horizontal'}, remote: true do |f|   %>
+    <div class="field form-group">
+      <%= f.label :asset_id, class: 'col-sm-4 control-label' %>
+      <div class="col-sm-8">
+        <%= f.collection_select :asset_id, Asset.all, :id, :name %>
+      </div>
+    </div>
+    <div class="field form-group">
+      <%= f.label :quantity, class: 'col-sm-4 control-label' %>
+      <div class="col-sm-8">
+        <%= f.text_field  :quantity, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="actions form-group">
+      <div class="col-sm-offset-4 col-sm-8">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    </div>
+<% end %>

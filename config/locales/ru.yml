@@ -24,6 +24,7 @@ ru:
     models:
       order: поручение
       client: клиент
+      item: позиция
     attributes:
       client:
         login: Логин
@@ -40,6 +41,8 @@ ru:
         order_price_type_id: Тип цены
         price: Цена
       item:
+        asset_id: Актив
+        quantity: Количество
         item_status_type_id: Тип сделки
   helpers:
     select:
@@ -48,6 +51,8 @@ ru:
       client:
         create:  Зарегистрироваться
         edit: Редактировать
+      item:
+        create: Добавить позицию
       new: Новое %{model}
       create: Создать %{model}
       edit: Редактировать %{model}
@@ -67,10 +72,12 @@ ru:
       full: Полностью
       edit: Редактировать
       no_data: Это вкладка пока пустая
+      delete_position: Ликвидировать
   shared:
     nav:
       name: Margin Application
       portfolio: Портфель
+      replenish: Пополнить баланс
       log_in: Войти
       log_out: Выйти
       edit: Редактировать
