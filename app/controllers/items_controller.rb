@@ -9,9 +9,9 @@ class ItemsController < ApplicationController
 	end
 
 	def create
-		@balance = current_client.items.new(item_params)
-		@balance.item_status_type_id = 3
-		@code = @balance.save
+		@item = current_client.items.new(item_params)
+		@item.item_status_type_id = 3
+		@code = @item.save
 		notification  'Позиция успешно добавлена'
 	end
 
@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
 			(flash[:success] ||= []) << message
 			render js: "window.location = '#{orders_path}'"
 		else
-			flash.now[:alert] = @order.errors.full_messages
+			flash.now[:alert] = @item.errors.full_messages
 			render partial: 'shared/notification'
 		end
 	end
