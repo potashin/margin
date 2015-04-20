@@ -1,20 +1,20 @@
-<h2>Profile</h2>
+<h2><%= t 'shared.sign_up.profile' %></h2>
 <span class="row"></span>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: 'form-horizontal'}) do |f| %>
     <%= devise_error_messages! %>
 
 
     <div class="field form-group">
-      <%= f.label :name , class: 'col-sm-5 control-label' %>
+      <%= f.label :first_name , class: 'col-sm-5 control-label' %>
       <div class="col-sm-7">
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.text_field :first_name, class: 'form-control' %>
       </div>
     </div>
 
     <div class="field form-group">
-      <%= f.label :surname , class: 'col-sm-5 control-label' %>
+      <%= f.label :last_name , class: 'col-sm-5 control-label' %>
       <div class="col-sm-7">
-        <%= f.text_field :surname, class: 'form-control' %>
+        <%= f.text_field :last_name, class: 'form-control' %>
       </div>
     </div>
 
@@ -25,15 +25,12 @@
         <%= f.email_field :email, autofocus: true , class: 'form-control'%>
       </div>
     </div>
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-    <% end %>
 
     <div class="field form-group">
       <%= f.label :password, class: 'col-sm-5 control-label' %>
 
       <div class="col-sm-7">
-        <%= f.password_field :password, autocomplete: "off", class: 'form-control' , placeholder: 'leave blank if you don\'t want to change it' %>
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
       </div>
     </div>
     <div class="field form-group">
@@ -51,23 +48,8 @@
     </div>
     <div class="actions form-group">
       <div class="col-sm-offset-5 col-sm-10">
-        <%= f.submit "Edit", class: 'btn btn-success'  %>
-        <%= link_to "Back", :back, class: 'btn btn-primary'  %>
+        <%= f.submit class: 'btn btn-success'  %>
+        <%= link_to t('back'),:back,  class: 'btn btn-primary'  %>
       </div>
     </div>
 <% end %>
-<div class="actions form-group">
-  <div class="container">
-	  <div class="row">
-	    <div class="column col-sm-5">
-	      <p>Unhappy?</p>
-	      <h4>Cancel my account</h4>
-	    </div>
-	    <div class="column col-sm-7">
-	      <span class="row"></span>
-
-	      <%= button_to "Cancel my account", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger' %>
-	    </div>
-	  </div>
-  </div>
-</div>
