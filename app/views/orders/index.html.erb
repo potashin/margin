@@ -31,7 +31,7 @@
                               <td><%= item.asset.name %></td>
                               <td><%= item.quantity.round(1) %></td>
                               <% if type.id == 3 %>
-                                  <td><%= link_to t('.delete_position'), item, method: :delete, remote: true , class: 'btn btn-danger'%></td>
+                                  <td><%= link_to t('.delete_position'), item, method: :delete, remote: true , class: 'btn btn-success'%></td>
                               <% end %>
                             </tr>
                         <% end %>
@@ -101,7 +101,7 @@
                                   <%= link_to t('.withdraw'),  withdraw_order_path(order), method: :patch , remote: true, class: 'btn btn-danger' %>
                                 </div>
                               </td>
-                              <td><%= link_to t('.edit'), edit_order_path(order) , remote: true, class: 'btn btn-default' %></td>
+                              <td><%= link_to t('.edit'), edit_order_path(order) , remote: true, class: 'btn btn-primary' %></td>
                           <% end %>
                         </tr>
                     <% end %>

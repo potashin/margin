@@ -2,4 +2,3 @@ $('.modal-body').html("<%= j (render partial: 'item_form') %>");
 $('.modal-header h2').text("<%= t("helpers.submit.#{action_name.to_s}" , model: t('activerecord.models.item')) %>");
 $('.modal .modal-footer').html(null);
 $('.modal').modal('show');
-$('.selectpicker').selectpicker()
