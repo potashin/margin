@@ -1,8 +1,8 @@
-<table class="table">
+<table id="portfolio" class="table">
   <% portfolio.each do |key, value| %>
       <tr>
         <td><%= t(".#{key}")%> :</td>
-        <td><strong><%= value %></strong></td>
+        <td><strong><%= value.round(1) %>&nbsp&nbsp&#8381</strong></td>
       </tr>
   <% end %>
 </table>
