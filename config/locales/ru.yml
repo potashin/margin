@@ -74,7 +74,7 @@ ru:
       full: Полностью
       edit: Редактировать
       no_data: Это вкладка пока пустая
-      delete_position: Ликвидировать
+      delete_position: Вывод со счёта
   shared:
     nav:
       name: Margin Application

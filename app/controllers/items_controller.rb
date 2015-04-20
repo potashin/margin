@@ -12,13 +12,13 @@ class ItemsController < ApplicationController
 		@item = current_client.items.new(item_params)
 		@item.item_status_type_id = 3
 		@code = @item.save
-		notification  'Позиция успешно добавлена'
+		notification  'Позиция успешна добавлена в портфель клиента'
 	end
 
 	def destroy
 		@item = current_client.items.find(params[:id])
 		@code = @item.destroy
-		notification  'Позиция успешно ликвидирована'
+		notification  'Позиция успешно выведена из портфеля клиента'
 	end
 
 	def notification(message)
