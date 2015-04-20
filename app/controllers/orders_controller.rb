@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
 				render js: "window.location = '#{orders_path}'"
 			else
 				flash.now[:alert] = @order.errors.full_messages
-				render partial: 'orders/notification'
+				render partial: 'shared/notification'
 			end
 		end
 

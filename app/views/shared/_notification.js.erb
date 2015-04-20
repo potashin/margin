@@ -8,7 +8,7 @@ notifications += <% messages.each do |m| %>
 				<% end %>
 <% end %>
 
-if($('form#new_order, form[id^=edit_order]').length)
+if($('form[id^=new_], form[id^=edit_]').length)
 	$('.modal .modal-footer').html(notifications);
 else
 	$("#notification").html(notifications);
