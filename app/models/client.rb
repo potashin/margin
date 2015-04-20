@@ -143,6 +143,6 @@ class Client < ActiveRecord::Base
 		end
 
 		# Append each margin index with default currency name (in which all calculations were made)
-		@portfolio.each do |k, x| @portfolio[k] = "#{x} RUB" end
+		@portfolio.each do |k, x| @portfolio[k] = "#{x.round(1)} RUB" end
 	end
 end

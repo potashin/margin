@@ -1,55 +1,49 @@
 <div >
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title"><%= t '.state' %></h4>
-      <span class="pull-right panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
-    </div>
-    <div class="panel-body">
-      <table class="table ">
-        <%= render partial: 'shared/portfolio'%>
-      </table>
-    </div>
-  </div>
-</div>
-<div >
-  <div class="panel panel-default">
-    <div class="panel-heading">
       <h4 class="panel-title"><%= t '.contents'%></h4>
-      <span class="pull-right panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+      <span class="pull-right "><i class="glyphicon glyphicon-chevron-up"></i></span>
     </div>
-    <div class="panel-body">
-      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-        <% @item_types.each  do |type| %>
-            <li class=" <%= if type.id == 3 then 'active' end %>">
-              <a href="#<%= type.id %>_item" data-toggle="tab"><%= type.description %></a>
-            </li>
-        <% end %>
-      </ul>
-      <div class="tab-content">
-        <% @item_types.each do |type| %>
-            <div class="tab-pane <%= if type.id == 3 then 'active' end %>" id="<%= type.id %>_item">
-              <table class="table ">
-                <% if @items.key?(type.id)  %>
-                    <tr>
-                      <th><%= t 'activerecord.attributes.order.asset_id' %></th>
-                      <th><%= t 'activerecord.attributes.order.quantity' %></th>
-                    </tr>
-                    <% @items[type.id].each do |item| %>
-	                    <tr >
-	                      <td><%= item.asset.name %></td>
-	                      <td><%= item.quantity %></td>
-	                    </tr>
-	                <% end %>
-                <% else  %>
-                  <tr>
-                    <td>
-                      <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
-                    </td>
-                  </tr>
-                <% end %>
-              </table>
-            </div>
-        <% end %>
+    <div class="panel-body collapse in">
+      <div class="row">
+        <div class="col-xs-6">
+          <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <% @item_types.each  do |type| %>
+                <li class=" <%= if type.id == 3 then 'active' end %>">
+                  <a href="#<%= type.id %>_item" data-toggle="tab"><%= type.description %></a>
+                </li>
+            <% end %>
+          </ul>
+          <div class="tab-content">
+            <% @item_types.each do |type| %>
+                <div class="tab-pane <%= if type.id == 3 then 'active' end %>" id="<%= type.id %>_item">
+                  <table class="table ">
+                    <% if @items.key?(type.id)  %>
+                        <tr>
+                          <th><%= t 'activerecord.attributes.order.asset_id' %></th>
+                          <th><%= t 'activerecord.attributes.order.quantity' %></th>
+                        </tr>
+                        <% @items[type.id].each do |item| %>
+                            <tr >
+                              <td><%= item.asset.name %></td>
+                              <td><%= item.quantity.round(1) %></td>
+                            </tr>
+                        <% end %>
+                    <% else  %>
+                        <tr>
+                          <td>
+                            <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
+                          </td>
+                        </tr>
+                    <% end %>
+                  </table>
+                </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-xs-6" style="margin-top: 41px">
+          <%= render partial: 'shared/portfolio'%>
+        </div>
       </div>
     </div>
   </div>
@@ -79,8 +73,8 @@
                       <th><%= t 'activerecord.attributes.order.price' %></th>
                       <th><%= t 'activerecord.attributes.order.quantity' %></th>
                       <th><%= t 'activerecord.attributes.order.order_status_type_id' %></th>
-                      <% if type.id  == 1 %>
-                          <th colspan="2"><%= t '.options' %></th>
+                      <% if type.id == 1 %>
+                          <th><%= t '.options' %></th>
                           <th></th>
                       <% end %>
                     </tr>
@@ -91,12 +85,12 @@
                           <td><%= order.price %></td>
                           <td><%= order.quantity %></td>
                           <td><%= order.order_status_type.description %></td>
-                          <% if type.id  == 1 %>
-                              <td colspan="2">
-                                <div class="btn-group" role="menu">
+                          <% if type.id == 1 %>
+                              <td >
+                                <div class="btn-group pull-right" role="menu" >
                                   <%= link_to t('.full'), execute_full_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
                                   <% if order.quantity > 1 %>
-                                      <%= link_to t('.partial') , execute_partial_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
+                                      <%= link_to t('.partial'), execute_partial_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
                                   <% end %>
                                   <%= link_to t('.withdraw'),  withdraw_order_path(order), method: :patch , remote: true, class: 'btn btn-danger' %>
                                 </div>

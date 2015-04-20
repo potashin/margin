@@ -58,8 +58,7 @@ ru:
       copyright: Margin Application © MOEX 2014-2015
   orders:
     index:
-      state: Состояние
-      contents: Содержимое
+      contents: Содержимое и состояние
       orders: Поручения
       options: Опции
       new: Новое поручение

@@ -12,11 +12,20 @@
 
 <div id="main-container" class="container-fluid">
   <div id="notification">
-    <% flash.each do |type, message| %>
-        <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-          <%= message %>
-        </div>
+    <% flash.each do |type, messages| %>
+	    <% if messages.respond_to?(:each) %>
+	        <% messages.each do |m| %>
+		        <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">
+		          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+		          <%= m %>
+		        </div>
+	        <% end %>
+        <% else %>
+            <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+              <%= messages %>
+            </div>
+        <% end %>
     <% end %>
   </div>
   <div class="row ">

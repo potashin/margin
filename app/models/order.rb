@@ -1,19 +1,19 @@
 class Order < ActiveRecord::Base
-	scope :active, -> { where order_state_type_id: 1}
+	scope :active, -> do where order_state_type_id: 1 end
 
 	belongs_to :currency,
-							-> { where payment_instrument_id: 3 },
+							-> do where payment_instrument_id: 3 end,
 							class_name: 'AssetPrice', foreign_key: 'payment_instrument_id', primary_key: 'asset_id'
 
 	belongs_to :market,
-	           -> (order){
+	           -> (order) do
 			           if order.is_a? JoinDependency::JoinAssociation
 				           where 'asset_prices.payment_instrument_id = orders.payment_instrument_id'
 			           else
 				           where payment_instrument_id: order.payment_instrument_id
 			           end
-	           },
-							class_name: 'AssetPrice', foreign_key: 'asset_id', primary_key: 'asset_id'
+	           end,
+	           class_name: 'AssetPrice', foreign_key: 'asset_id', primary_key: 'asset_id'
 
 	belongs_to :asset, class_name: 'Asset'
 	belongs_to :payment_instrument, class_name: 'Asset'
@@ -25,6 +25,11 @@ class Order < ActiveRecord::Base
 	validates :quantity,
 	          presence: true,
 	          numericality: { only_integer: true }
+
+	validates :price, numericality: { is: true, if: -> (order) do order.order_price_type_id == 2 end},
+	                  presence: { is: false, if: -> (order) do order.order_price_type_id == 1 end }
+
+	validates :client_id, :asset_id, :order_status_type_id, :order_price_type_id, presence: true
 
 	attr_readonly :asset_id, :order_status_type_id
 

@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
 
 	def withdraw
 		@code = @order.withdraw
-		raise_notification 'Поручение снято'
+		raise_notification 'Поручение успешно снято'
 	end
 
 	def execute_full
@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
 
 	def update
 		@code = @order.update(order_params)
-		raise_notification 'Поручение отредактировано'
+		raise_notification 'Поручение успешно отредактировано'
 	end
 
 	private
@@ -52,11 +52,12 @@ class OrdersController < ApplicationController
 
 		def raise_notification message
 			if @code
-				flash.now[:success] = message
+				(flash[:success] ||= []) << message
+				render js: "window.location = '#{orders_path}'"
 			else
-				flash.now[:error] = @order.errors.full_messages[0]
+				flash.now[:alert] = @order.errors.full_messages
+				render partial: 'orders/notification'
 			end
-			render partial: 'orders/notification'
 		end
 
 		def get_order
@@ -64,6 +65,12 @@ class OrdersController < ApplicationController
 		end
 
 		def order_params
-			params.require(:order).permit(:asset_id, :order_price_type_id, :price, :quantity, :payment_instrument_id, :order_status_type_id )
+			params.require(:order)
+						.permit(:asset_id,
+                    :order_price_type_id,
+                    :price,
+                    :quantity,
+                    :payment_instrument_id,
+                    :order_status_type_id)
 		end
 end

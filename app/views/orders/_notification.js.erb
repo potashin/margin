@@ -1,9 +1,14 @@
-var notifications = '';
-<% flash.each do |type, message| %>
-	notifications += '<div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">' +
+var notifications = ''
+<% flash.each do |type, messages| %>
+notifications += <% messages.each do |m| %>
+					'<div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">' +
 						'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' +
-						'<span><%= message %></span>' +
-					'</div>'
+								'<%= m %>' +
+							'</div>'
+				<% end %>
 <% end %>
 
-$("#notification").html(notifications);
+if($('form#new_order, form[id^=edit_order]').length)
+	$('.modal .modal-footer').html(notifications);
+else
+	$("#notification").html(notifications);
