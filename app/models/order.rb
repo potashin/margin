@@ -26,10 +26,17 @@ class Order < ActiveRecord::Base
 	          presence: true,
 	          numericality: { only_integer: true }
 
-	validates :price, numericality: { is: true, if: -> (order) do order.order_price_type_id == 2 end},
-	                  presence: { is: false, if: -> (order) do order.order_price_type_id == 1 end }
+	with_options if: -> (order) do order.order_price_type_id == 2 end do |o|
+		o.validates :price, numericality: true
+		o.validates :payment_instrument_id, presence: true
+	end
 
-	validates :client_id, :asset_id, :order_status_type_id, :order_price_type_id, presence: true
+	with_options if: -> (order) do order.order_price_type_id == 1 end do |o|
+		o.validates :price, presence: false
+		o.validates :payment_instrument_id, presence: false
+	end
+
+	validates :client_id, :asset_id, :order_status_type_id, :order_price_type_id, presence: true, allow_blank: false
 
 	attr_readonly :asset_id, :order_status_type_id
 

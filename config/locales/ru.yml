@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 ru:
+  back: Вернуться
   activerecord:
     models:
       order: поручение
@@ -30,6 +31,7 @@ ru:
         login: Логин
         password: Пароль
         password_confirmation: Повторите пароль
+        current_password: Текущий пароль
         first_name: Имя
         last_name: Фамилия
         email: E-mail
@@ -91,6 +93,7 @@ ru:
       title: Вход в систему
       log_in: Войти
     sign_up:
+      profile: Профиль
       title: Регистрация
   errors:
       format: "%{attribute} %{message}"
