@@ -6,7 +6,7 @@
     </div>
     <div class="panel-body collapse in">
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-7">
           <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <% @item_types.each  do |type| %>
                 <li class=" <%= if type.id == 3 then 'active' end %>">
@@ -47,7 +47,7 @@
             <% end %>
           </div>
         </div>
-        <div class="col-xs-6" style="margin-top: 41px">
+        <div class="col-xs-5" style="margin-top: 41px">
           <%= render partial: 'shared/portfolio'%>
         </div>
       </div>
