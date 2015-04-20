@@ -8,6 +8,12 @@ class Item < ActiveRecord::Base
 	scope :active,
 	      -> do where completed: 0 end
 
+	validates :quantity,
+	          presence: true,
+	          numericality: { only_integer: true }
+
+	validates :client_id, :asset_id, :item_status_type_id, presence: true, allow_blank: false
+
 	def self.get_items
 		items = {}
 		self.includes(:asset, :item_status_type).active.each do |v|
