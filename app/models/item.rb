@@ -8,6 +8,7 @@ class Item < ActiveRecord::Base
 	scope :active,
 	      -> do where completed: 0 end
 
+	validates :completed, inclusion: { in: [0,1] }
 	validates :quantity,
 	          presence: true,
 	          numericality: { only_integer: true }

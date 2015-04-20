@@ -54,6 +54,8 @@ AssetPrice.create([
 	                  {asset_id: 2, payment_instrument_id: 3, last: 65},
 	                  {asset_id: 4, payment_instrument_id: 3, last: 2849},
 	                  {asset_id: 3, payment_instrument_id: 3, last: 1},
+	                  {asset_id: 2, payment_instrument_id: 6, last: 0.9},
+	                  {asset_id: 6, payment_instrument_id: 2, last: 1.2},
                   ])
 
 AssetDiscount.create([

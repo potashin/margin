@@ -46,12 +46,12 @@ ActiveRecord::Schema.define(version: 20150404174157) do
   add_index "asset_types", ["name"], name: "index_asset_types_on_name", unique: true
 
   create_table "assets", force: :cascade do |t|
-    t.string   "name",          limit: 20,                 null: false
+    t.string   "name",          limit: 20,              null: false
     t.text     "description",   limit: 100
     t.integer  "asset_type_id"
-    t.boolean  "liquid",                    default: true
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.integer  "liquid",                    default: 1
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "assets", ["name"], name: "index_assets_on_name", unique: true
@@ -91,10 +91,10 @@ ActiveRecord::Schema.define(version: 20150404174157) do
     t.integer  "asset_id"
     t.float    "quantity"
     t.integer  "item_status_type_id"
-    t.boolean  "completed",           default: false
+    t.integer  "completed",           default: 0
     t.integer  "order_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "order_price_types", force: :cascade do |t|

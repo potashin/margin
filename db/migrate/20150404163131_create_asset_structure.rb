@@ -11,7 +11,7 @@ class CreateAssetStructure < ActiveRecord::Migration
 			t.string :name, limit: 20, null: false
 			t.text :description, limit: 100
 			t.integer :asset_type_id
-			t.boolean :liquid, default: 1
+			t.integer :liquid, default: 1
 			t.timestamps null: false
 		end
     add_index :assets, :name, unique: true
