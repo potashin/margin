@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 	root 'orders#index'
 
 	devise_for :client, controllers: {sessions: 'client/sessions', registrations: 'client/registrations'}
+
 	resources :orders do
 		member do
 			patch :withdraw, :execute_full, :execute_partial

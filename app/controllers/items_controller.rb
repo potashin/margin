@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 
-	before_filter :authenticate_client!
+	before_action :authenticate_client!
 
 	respond_to :html, :js
 
@@ -9,19 +9,27 @@ class ItemsController < ApplicationController
 	end
 
 	def create
-		@item = current_client.items.new(item_params)
-		@item.item_status_type_id = 3
+		@item = current_client.items.find_by(asset_id: item_params[:asset_id], item_status_type_id: 3 )
+		if @item
+			@item.quantity += item_params[:quantity].to_f
+		else
+			@item = current_client.items.new(item_params)
+			@item.item_status_type_id = 3
+		end
+
 		@code = @item.save
-		notification  'Позиция успешна добавлена в портфель клиента'
+		notification 'Баланс успешно обновлен'
 	end
 
 	def destroy
 		@item = current_client.items.find(params[:id])
 		@code = @item.destroy
-		notification  'Позиция успешно выведена из портфеля клиента'
+		notification 'Позиция успешно выведена из портфеля клиента'
 	end
 
-	def notification(message)
+	private
+
+	def notification message
 		if @code
 			(flash[:success] ||= []) << message
 			render js: "window.location = '#{orders_path}'"
@@ -30,7 +38,6 @@ class ItemsController < ApplicationController
 			render partial: 'shared/notification'
 		end
 	end
-
 
 	def item_params
 		params.require(:item)

@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
 	validates :completed, inclusion: { in: [0,1] }
 	validates :quantity,
 	          presence: true,
-	          numericality: { only_integer: true }
+	          numericality: true
 
 	validates :client_id, :asset_id, :item_status_type_id, presence: true, allow_blank: false
 

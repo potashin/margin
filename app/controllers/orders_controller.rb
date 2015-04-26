@@ -18,27 +18,27 @@ class OrdersController < ApplicationController
 	def create
 		@order = current_client.orders.new(order_params)
 		@code = @order.save
-		raise_notification 'Создано новое поручение'
+		notification 'Создано новое поручение'
 	end
 
 	def withdraw
 		@code = @order.withdraw
-		raise_notification 'Поручение успешно снято'
+		notification 'Поручение успешно снято'
 	end
 
 	def execute_full
 		@code = @order.order_to_item()
-		raise_notification 'Поручение выполнено полностью'
+		notification 'Поручение выполнено полностью'
 	end
 
 	def execute_partial
 		@code = @order.order_to_item(rand 1...@order.quantity)
-		raise_notification 'Поручение выполнено частично'
+		notification 'Поручение выполнено частично'
 	end
 
 	def update
 		@code = @order.update(order_params)
-		raise_notification 'Поручение успешно отредактировано'
+		notification 'Поручение успешно отредактировано'
 	end
 
 	private
@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
 			@item_types = ItemStatusType.all
 		end
 
-		def raise_notification message
+		def notification message
 			if @code
 				(flash[:success] ||= []) << message
 				render js: "window.location = '#{orders_path}'"

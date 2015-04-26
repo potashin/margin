@@ -9,10 +9,10 @@ class CreateItemStructure < ActiveRecord::Migration
     add_index :item_status_types, :name, unique: true
 
     create_table :items do |t|
-	    t.integer :client_id
-	    t.integer :asset_id
-	    t.float :quantity
-	    t.integer :item_status_type_id
+	    t.integer :client_id, null: false
+	    t.integer :asset_id, null: false
+	    t.float :quantity, null: false
+	    t.integer :item_status_type_id, null: false
 	    t.integer :completed, default: 0
 	    t.integer :order_id
 	    t.timestamps null: false

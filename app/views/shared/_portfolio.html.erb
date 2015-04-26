@@ -1,8 +1,18 @@
 <table id="portfolio" class="table">
   <% portfolio.each do |key, value| %>
       <tr>
-        <td><%= t(".#{key}")%> :</td>
+        <td><%= t(".#{key}")%></td>
         <td><strong><%= value.round(1) %>&nbsp&nbsp&#8381</strong></td>
       </tr>
   <% end %>
+  <tfoot>
+	  <tr>
+	    <td colspan="2">
+	        <span class="label <%= label_class_for(current_client.status) %>">
+	          <%= t ".status_#{current_client.status}" %>
+	        </span>
+	    </td>
+	  </tr>
+  </tfoot>
+
 </table>

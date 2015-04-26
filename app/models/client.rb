@@ -140,6 +140,16 @@ class Client < ActiveRecord::Base
 			# Initial margin adjusted with orders
 			@portfolio[:m_order] += [data[:total_risk_plus], data[:total_risk_minus]].max
 		end
+		@status = if @portfolio[:total] >= @portfolio[:m_order] then 1
+		          elsif @portfolio[:total] < @portfolio[:m_order] and @portfolio[:total] >= @portfolio[:m_initial] then 2
+		          elsif @portfolio[:total] < @portfolio[:m_initial] and @portfolio[:total] >= @portfolio[:m_minimum] then 3
+		          elsif @portfolio[:total] < @portfolio[:m_initial] and @portfolio[:total] < @portfolio[:m_minimum] then 4
+		          else 5
+		          end
 		@portfolio
+	end
+
+	def status
+		@status
 	end
 end

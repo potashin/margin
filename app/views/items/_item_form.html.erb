@@ -2,7 +2,7 @@
     <div class="field form-group">
       <%= f.label :asset_id, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
-        <%= f.collection_select :asset_id, Asset.all, :id, :name %>
+        <%= f.collection_select :asset_id, Asset.fx, :id, :name %>
       </div>
     </div>
     <div class="field form-group">
