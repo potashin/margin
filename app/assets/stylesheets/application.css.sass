@@ -98,12 +98,23 @@ div.panel-body
 #notification div.alert > span
   margin: 0 100px
 
+#portfolio
+  table-layout: fixed
 
-#main-container #portfolio td
+#portfolio span
+  display: block
+  white-space: normal
+  font-size: 1em
+
+#portfolio tbody td
   padding: 8px 5%
 
-#portfolio td:first-child
+#portfolio tbody td:first-child
+  min-width: 200px
   text-align: left
 
-#portfolio td:last-child
+#portfolio tbody td:last-child
   text-align: right
+
+#portfolio tfoot
+  border: 1px solid #ddd

@@ -23,10 +23,11 @@ $(document).ready( function() {
             var error_messages;
             error_messages = xhr.responseJSON['error'] ? "<div class='alert alert-danger text-center'>" + xhr.responseJSON['error'] + "</div>" : xhr.responseJSON['errors'] ? $.map(xhr.responseJSON["errors"], function (v, k) {
                 return "<div class='alert alert-danger text-center'>" + k + " " + v + "</div>";
-            }).join("") : "<div class='alert alert-danger text-center'>Unknown error</div>";
+            }).join("") : "<div class='alert alert-danger text-center'>Неизвестная ошибка</div>";
             return $(this).parents('.modal').find('.modal-footer').html(error_messages);
         })
 
+        window.setTimeout(function() { $(".alert").alert('close'); }, 5000);
         $('.panel .panel-heading').on("click", function (e) {
             var el = $(this).find('span')
             if (el.hasClass('panel-collapsed')) {

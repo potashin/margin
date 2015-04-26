@@ -87,10 +87,10 @@ ActiveRecord::Schema.define(version: 20150404174157) do
   add_index "item_status_types", ["name"], name: "index_item_status_types_on_name", unique: true
 
   create_table "items", force: :cascade do |t|
-    t.integer  "client_id"
-    t.integer  "asset_id"
-    t.float    "quantity"
-    t.integer  "item_status_type_id"
+    t.integer  "client_id",                       null: false
+    t.integer  "asset_id",                        null: false
+    t.float    "quantity",                        null: false
+    t.integer  "item_status_type_id",             null: false
     t.integer  "completed",           default: 0
     t.integer  "order_id"
     t.datetime "created_at",                      null: false

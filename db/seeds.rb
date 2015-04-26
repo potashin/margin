@@ -62,7 +62,11 @@ AssetDiscount.create([
 	                     {asset_id: 3, client_type_id: 1, d0_plus: 0, d0_minus: 0, dx_plus: 0, dx_minus: 0},
 	                     {asset_id: 2, client_type_id: 1, d0_plus: 0.1, d0_minus: 0.15, dx_plus: 0.05, dx_minus: 0.05},
 	                     {asset_id: 6, client_type_id: 1, d0_plus: 0.15, d0_minus: 0.20, dx_plus: 0.08, dx_minus: 0.08},
-	                     {asset_id: 1, client_type_id: 1, d0_plus: 0.3, d0_minus: 0.35, dx_plus: 0.16, dx_minus: 0.16}
+	                     {asset_id: 1, client_type_id: 1, d0_plus: 0.3, d0_minus: 0.35, dx_plus: 0.16, dx_minus: 0.16},
+	                     {asset_id: 5, client_type_id: 1, d0_plus: 0.25, d0_minus: 0.35, dx_plus: 0.15, dx_minus: 0.15},
+	                     {asset_id: 4, client_type_id: 1, d0_plus: 0.08, d0_minus: 0.12, dx_plus: 0.03, dx_minus: 0.03},
+	                     {asset_id: 7, client_type_id: 1, d0_plus: 0.2, d0_minus: 0.2, dx_plus: 0.1, dx_minus: 0.1}
+
                      ])
 Item.create([
 	            {client_id: 1, asset_id: 2, item_status_type_id: 3, quantity: 100},

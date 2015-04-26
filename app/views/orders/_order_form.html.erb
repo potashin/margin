@@ -8,7 +8,7 @@
     <div class="field form-group">
       <%= f.label :asset_id, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
-        <%= f.collection_select :asset_id, Asset.all, :id, :name %>
+        <%= grouped_collection_select :asset, :asset_type_id, AssetType.all, :assets, :description , :id, :name %>
       </div>
     </div>
     <div class="field form-group">
@@ -33,7 +33,7 @@
 	  <div class="field form-group">
 	    <%= f.label :payment_instrument_id, class: 'col-sm-4 control-label' %>
 	    <div class="col-sm-8">
-	      <%= f.collection_select :payment_instrument_id, Asset.where(asset_type_id: 2).all, :id, :name , include_blank: true %>
+	      <%= f.collection_select :payment_instrument_id, Asset.fx, :id, :name , include_blank: true %>
 	    </div>
 	  </div>
 	</div>
