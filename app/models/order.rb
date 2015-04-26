@@ -56,7 +56,6 @@ class Order < ActiveRecord::Base
 	# Execute order (set state as executed)
 	def execute
 		self.update_attribute(:order_state_type_id, 3)
-		self
 	end
 
 	# Turn executed order into requirement and obligation
