@@ -1,14 +1,14 @@
-<%= form_for @order, html: {class: 'form-horizontal'}, remote: true do |f|   %>
+<%= form_for @order, html: { class: 'form-horizontal'}, remote: true do |f|   %>
     <div class="field form-group">
       <%= f.label :order_status_type_id, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
-        <%= f.collection_select :order_status_type_id, OrderStatusType.all, :id, :description, {disabled: 'disabled' } %>
+        <%= f.collection_select :order_status_type_id, OrderStatusType.all, :id, :description %>
       </div>
     </div>
     <div class="field form-group">
       <%= f.label :asset_id, class: 'col-sm-4 control-label' %>
       <div class="col-sm-8">
-        <%= grouped_collection_select :asset, :asset_type_id, AssetType.all, :assets, :description , :id, :name %>
+        <%= f.grouped_collection_select :asset_id, AssetType.all, :assets, :description , :id, :name %>
       </div>
     </div>
     <div class="field form-group">

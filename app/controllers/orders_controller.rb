@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
 
 	before_action :authenticate_client!
-	before_action :get_orders_by_state, only: [:index, :create]
-	before_action :get_order, only: [:edit, :update, :withdraw, :execute_full, :execute_partial]
+	before_action :order, only: [:edit, :update, :withdraw, :execute_full, :execute_partial]
 
 	respond_to :html, :js
 
@@ -12,7 +11,15 @@ class OrdersController < ApplicationController
 	end
 
 	def edit
+		logger.debug @order.inspect
 		render partial: 'orders/modal'
+	end
+
+	def index
+		@items = current_client.items.get_items
+		@orders = current_client.orders.get_orders
+		@order_types = OrderStateType.all
+		@item_types = ItemStatusType.all
 	end
 
 	def create
@@ -43,13 +50,6 @@ class OrdersController < ApplicationController
 
 	private
 
-		def get_orders_by_state
-			@items = current_client.items.get_items
-			@orders = current_client.orders.get_orders
-			@order_types = OrderStateType.all
-			@item_types = ItemStatusType.all
-		end
-
 		def notification message
 			if @code
 				(flash[:success] ||= []) << message
@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
 			end
 		end
 
-		def get_order
+		def order
 			@order = current_client.orders.find(params[:id])
 		end
 

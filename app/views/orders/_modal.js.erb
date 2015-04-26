@@ -12,7 +12,7 @@ $(".modal form select[id=order_order_price_type_id]").on("change", function(){
 })
 
 if($('form[id^=edit_order]').length)
-	$('form[id^=edit_order]').find('input, select').not('[name="order[quantity]"], [type="submit"]').prop({disabled: true})
+	$('form[id^=edit_order]').find('input, select').not('[type=hidden],[name="order[quantity]"], [type="submit"]').prop({disabled: true})
 
 
 
