@@ -55,6 +55,7 @@ ru:
         edit: Редактировать
       item:
         create: Добавить позицию
+        new: Пополнение баланса
       new: Новое %{model}
       create: Создать %{model}
       edit: Редактировать %{model}
@@ -65,7 +66,8 @@ ru:
       copyright: Margin Application © MOEX 2014-2015
   orders:
     index:
-      contents: Содержимое и состояние
+      contents: Содержимое портфеля
+      status: Состояние портфеля
       orders: Поручения
       options: Опции
       new: Новое поручение
@@ -75,11 +77,15 @@ ru:
       edit: Редактировать
       no_data: Это вкладка пока пустая
       delete_position: Вывод со счёта
+      fx_pair: Валютная пара
+      fx_market: Валютный рынок
+      sec_market: Фондовый рынок
   shared:
     nav:
       name: Margin Application
       portfolio: Портфель
       replenish: Пополнить баланс
+      clearing: Провести клиринг
       log_in: Войти
       log_out: Выйти
       edit: Редактировать

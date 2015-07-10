@@ -16,6 +16,26 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
+@media all and (max-width: 752px)
+
+  #main-container .table-responsive table tbody
+    border: none
+
+  .table-responsive
+    border-top: none
+
+  #notification .alert
+    min-width: 70%
+    max-width: 90%
+
+  .table, .nav-tabs, .btn
+    font-size: 1em
+
+  .modal
+    max-width: 75%
+    margin: 0 auto
+    font-size: 1em
+
 .modal-dialog
   margin: 60px auto
 
@@ -50,9 +70,6 @@ nav > div > .row
 nav > div > .row > div:not(:first-child)
   padding: 8px 0
 
-.dropdown-menu li
-  padding: 15px
-
 select
   font-size: 3em
   margin: 8px 0
@@ -63,9 +80,19 @@ select
 #main-container div#market_prices table
   table-layout: fixed
 
-#main-container table thead,#main-container table tbody
+#market table
+  table-layout: fixed
+
+#market table tbody
+  font-family: 'PTMono',monospace
+
+#main-container table
   background: white
   border: 1px solid #ddd
+
+#main-container  table#orders th:last-child
+  width: 400px
+  min-width: 400px
 
 .nav-tabs
   border: none
@@ -85,18 +112,21 @@ div.panel-body
   display: none
 
 #notification
+  width: 100%
   position: fixed
   z-index: 9999
-  margin-left: 20px
+  right: 10%
+  left: 10%
   top: 60px
 
 #notification .alert
+  max-width: 80%
   -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4)
   -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4)
   box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.4)
 
 #notification div.alert > span
-  margin: 0 100px
+  margin: 0 5%
 
 #portfolio
   table-layout: fixed
@@ -107,10 +137,10 @@ div.panel-body
   font-size: 1em
 
 #portfolio tbody td
-  padding: 8px 5%
+  padding: 8px
 
 #portfolio tbody td:first-child
-  min-width: 200px
+  min-width: 300px
   text-align: left
 
 #portfolio tbody td:last-child

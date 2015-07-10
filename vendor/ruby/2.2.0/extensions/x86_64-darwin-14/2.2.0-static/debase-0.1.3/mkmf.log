@@ -1,0 +1,56 @@
+have_header: checking for vm_core.h... -------------------- no
+
+"gcc -o conftest -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/x86_64-darwin14 -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/ruby/backward -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0 -I. -I/Users/Notulysses/.rvm/src/ruby-2.2.0 -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/haven/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/Notulysses/.rvm/rubies/ruby-2.2.0/lib -L. -L/Users/haven/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/haven/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -E -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/x86_64-darwin14 -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/ruby/backward -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0 -I. -I/Users/Notulysses/.rvm/src/ruby-2.2.0 -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/haven/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe  conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'vm_core.h' file not found
+#include <vm_core.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for vm_core.h... -------------------- no
+
+"gcc -E -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/x86_64-darwin14 -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/ruby/backward -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0 -I. -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/ruby-2.2.0-p0 -O3 -I/Users/haven/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe  conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'vm_core.h' file not found
+#include <vm_core.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for vm_core.h... -------------------- yes
+
+"gcc -E -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/x86_64-darwin14 -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0/ruby/backward -I/Users/Notulysses/.rvm/rubies/ruby-2.2.0/include/ruby-2.2.0 -I. -I/Users/Notulysses/web/moex/ror_margin/vendor/ruby/2.2.0/gems/debase-ruby_core_source-0.7.9/lib/debase/ruby_core_source/ruby-2.2.0-p0 -O3 -I/Users/haven/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+/* end */
+
+--------------------
+

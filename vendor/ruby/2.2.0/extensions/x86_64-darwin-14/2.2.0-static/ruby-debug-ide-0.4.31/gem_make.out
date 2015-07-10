@@ -1,0 +1,5 @@
+/Users/Notulysses/.rvm/rubies/ruby-2.2.0/bin/ruby mkrf_conf.rb
+Installing base gem
+Building native extensions.  This could take a while...
+
+/Users/Notulysses/.rvm/rubies/ruby-2.2.0/bin/ruby -rubygems /Users/Notulysses/.rvm/rubies/ruby-2.2.0/lib/ruby/gems/2.2.0/gems/rake-10.4.2/bin/rake RUBYARCHDIR=/Users/Notulysses/web/moex/ror_margin/vendor/ruby/2.2.0/extensions/x86_64-darwin-14/2.2.0-static/ruby-debug-ide-0.4.31 RUBYLIBDIR=/Users/Notulysses/web/moex/ror_margin/vendor/ruby/2.2.0/extensions/x86_64-darwin-14/2.2.0-static/ruby-debug-ide-0.4.31

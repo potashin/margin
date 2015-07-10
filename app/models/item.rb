@@ -15,11 +15,4 @@ class Item < ActiveRecord::Base
 
 	validates :client_id, :asset_id, :item_status_type_id, presence: true, allow_blank: false
 
-	def self.get_items
-		items = {}
-		self.includes(:asset, :item_status_type).active.each do |v|
-			(items[v.item_status_type_id.to_i] ||= []) << v
-		end
-		items
-	end
 end

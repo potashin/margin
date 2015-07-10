@@ -3,7 +3,7 @@ var notifications = ''
 notifications += <% messages.each do |m| %>
 					'<div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">' +
 						'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' +
-								'<%= m %>' +
+								'<p><%= m %></p>' +
 							'</div>'
 				<% end %>
 <% end %>

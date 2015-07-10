@@ -1,0 +1,17 @@
+/Users/Notulysses/.rvm/rubies/ruby-2.2.0/bin/ruby -r ./siteconf20150527-633-1y2nvqj.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling hitimes.c
+compiling hitimes_instant_clock_gettime.c
+compiling hitimes_instant_osx.c
+compiling hitimes_instant_windows.c
+compiling hitimes_interval.c
+compiling hitimes_stats.c
+linking shared-object hitimes/2.2/hitimes.bundle
+ld: warning: directory not found for option '-L/Users/haven/.sm/pkg/active/lib'
+
+make "DESTDIR=" install
+/usr/bin/install -m 0755 hitimes.bundle ./.gem.20150527-633-838hbi/hitimes/2.2
