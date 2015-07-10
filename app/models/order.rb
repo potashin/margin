@@ -40,13 +40,6 @@ class Order < ActiveRecord::Base
 
 	attr_readonly :asset_id, :order_status_type_id
 
-	def self.get_orders
-		orders = {}
-		self.includes(:asset, :payment_instrument, :order_status_type, :order_state_type).each do |v|
-			(orders[v.order_state_type_id.to_i] ||= []) << v
-		end
-		orders
-	end
 
 	# Withdraw order (set state as withdrawn)
 	def withdraw

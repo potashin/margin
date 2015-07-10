@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.0'
+gem 'puma'
 # Use sqlite3 and FireBird as the database for Active Record
 #gem 'activerecord-fb-adapter'
 gem 'sqlite3'
@@ -46,7 +47,11 @@ group :development, :test do
   gem 'ruby-debug-ide'
   gem 'debase'
 
+	gem 'rspec-rails'
+	gem 'factory_girl_rails'
+	gem 'capybara'
+	gem 'database_cleaner'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   # gem 'spring'
 end
-

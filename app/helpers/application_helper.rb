@@ -19,8 +19,6 @@ module ApplicationHelper
 		}[flash_type.to_i]
 	end
 
-	protected
-
 	def portfolio
 		@portfolio = current_client.get_item_portfolio
 	end

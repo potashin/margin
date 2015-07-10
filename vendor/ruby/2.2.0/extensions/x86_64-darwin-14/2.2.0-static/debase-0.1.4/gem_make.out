@@ -1,0 +1,18 @@
+/Users/Notulysses/.rvm/rubies/ruby-2.2.0/bin/ruby -r ./siteconf20150527-3251-1cjirep.rb extconf.rb
+checking for vm_core.h... no
+checking for vm_core.h... no
+checking for vm_core.h... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling breakpoint.c
+compiling context.c
+compiling debase_internals.c
+compiling locker.c
+linking shared-object debase_internals.bundle
+ld: warning: directory not found for option '-L/Users/haven/.sm/pkg/active/lib'
+
+make "DESTDIR=" install
+/usr/bin/install -m 0755 debase_internals.bundle ./.gem.20150527-3251-1d5vgzn

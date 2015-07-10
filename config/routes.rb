@@ -11,6 +11,13 @@ Rails.application.routes.draw do
 	end
 
 	resources :items
+	get '/asset_prices/security', to: 'asset_prices#security_prices'
+	get '/asset_prices/fx', to: 'asset_prices#fx_prices'
+
+
+	resources :test do
+		get 'associated_links'
+	end
 
 	# The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

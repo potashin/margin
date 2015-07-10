@@ -10,14 +10,14 @@ class OrdersController < ApplicationController
 		render partial: 'orders/modal'
 	end
 
+
 	def edit
-		logger.debug @order.inspect
 		render partial: 'orders/modal'
 	end
 
 	def index
-		@items = current_client.items.get_items
-		@orders = current_client.orders.get_orders
+		@items = current_client.items.includes(:asset, :item_status_type).active.group_by(&:item_status_type_id)
+		@orders = current_client.orders.includes(:asset, :payment_instrument).group_by(&:order_state_type_id)
 		@order_types = OrderStateType.all
 		@item_types = ItemStatusType.all
 	end

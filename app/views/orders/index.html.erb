@@ -1,122 +1,151 @@
-<div >
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title"><%= t '.contents'%></h4>
-      <span class="pull-right "><i class="glyphicon glyphicon-chevron-up"></i></span>
-    </div>
-    <div class="panel-body collapse in">
-      <div class="row">
-        <div class="col-xs-7">
-          <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-            <% @item_types.each  do |type| %>
-                <li class=" <%= if type.id == 3 then 'active' end %>">
-                  <a href="#<%= type.id %>_item" data-toggle="tab"><%= type.description %></a>
-                </li>
-            <% end %>
-          </ul>
-          <div class="tab-content">
-            <% @item_types.each do |type| %>
-                <div class="tab-pane <%= if type.id == 3 then 'active' end %>" id="<%= type.id %>_item">
-                  <table class="table ">
-                    <% if @items.key?(type.id)  %>
-                        <tr>
-                          <th><%= t 'activerecord.attributes.order.asset_id' %></th>
-                          <th><%= t 'activerecord.attributes.order.quantity' %></th>
-                          <% if type.id == 3 %>
-                              <th></th>
-                          <% end %>
-                        </tr>
-                        <% @items[type.id].each do |item| %>
-                            <tr >
-                              <td><%= item.asset.name %></td>
-                              <td><%= item.quantity.round(1) %></td>
-                              <% if type.id == 3 %>
-                                  <td><%= link_to t('.delete_position'), item, method: :delete, remote: true , class: 'btn btn-success'%></td>
-                              <% end %>
-                            </tr>
-                        <% end %>
-                    <% else  %>
-                        <tr>
-                          <td>
-                            <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
-                          </td>
-                        </tr>
-                    <% end %>
-                  </table>
-                </div>
-            <% end %>
-          </div>
-        </div>
-        <div class="col-xs-5" style="margin-top: 41px">
-          <%= render partial: 'shared/portfolio'%>
-        </div>
+<div class="row" >
+    <div class="col-xs-12 col-md-7" id="market">
+      <div class="col-xs-6">
+        <h4><%= t '.sec_market' %></h4>
+        <table id="security" class="table table-condensed">
+          <thead>
+	          <tr>
+	            <th><%= t 'activerecord.attributes.order.asset_id' %></th>
+	            <th><%= t 'activerecord.attributes.order.price' %></th>
+	          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
+      <!--<div class="col-xs-6">
+        <h4><%#= t '.fx_market' %></h4>
+        <table id="fx" class="table table-condensed">
+          <thead>
+          <tr>
+            <th><%#= t '.fx_pair' %></th>
+            <th><%#= t 'activerecord.attributes.order.price' %></th>
+          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>-->
     </div>
-  </div>
+    <div class="col-xs-12 col-md-5">
+      <h4><%= t '.status' %></h4>
+      <%= render partial: 'shared/portfolio'%>
+    </div>
 </div>
-<div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title"><%= t '.orders' %></h4>
-      <span class="pull-right panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
-    </div>
-    <div class="panel-body">
-      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-        <% @order_types.each  do |type| %>
-            <li class=" <%= if type.id == 1 then 'active' end %>">
-              <a href="#<%= type.id %>_order" data-toggle="tab"><%= type.description %></a>
-            </li>
-        <% end %>
-      </ul>
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h4 class="panel-title"><%= t '.contents'%></h4>
+  <span class="pull-right "><i class="glyphicon glyphicon-chevron-up"></i></span>
+</div>
+<div class="panel-body collapse in">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 ">
+        <ul id="tabs" class="nav nav-tabs " data-tabs="tabs">
+          <% @item_types.each  do |type| %>
+              <li class=" <%= if type.id == 3 then 'active' end %>">
+                <a href="#<%= type.id %>_item" data-toggle="tab"><%= type.description %></a>
+              </li>
+          <% end %>
+        </ul>
       <div class="tab-content">
-        <% @order_types.each do |type| %>
-            <div class="tab-pane <%= if type.id == 1 then 'active' end %>" id="<%= type.id %>_order">
-              <table class="table ">
-	              <% if @orders.key?(type.id)  %>
-                    <tr >
+        <% @item_types.each do |type| %>
+            <div class="tab-pane <%= if type.id == 3 then 'active' end %>" id="<%= type.id %>_item">
+              <table class="table table-condensed">
+                <% if @items.key?(type.id)  %>
+                    <tr>
                       <th><%= t 'activerecord.attributes.order.asset_id' %></th>
-                      <th><%= t 'activerecord.attributes.order.payment_instrument_id' %></th>
-                      <th><%= t 'activerecord.attributes.order.price' %></th>
                       <th><%= t 'activerecord.attributes.order.quantity' %></th>
-                      <th><%= t 'activerecord.attributes.order.order_status_type_id' %></th>
-                      <% if type.id == 1 %>
-                          <th><%= t '.options' %></th>
+                      <% if type.id == 3 %>
                           <th></th>
                       <% end %>
                     </tr>
-                    <% @orders[type.id].each do |order| %>
+                    <% @items[type.id].each do |item| %>
                         <tr >
-                          <td><%= order.asset.name %></td>
-                          <td><%= order.payment_instrument.name %></td>
-                          <td><%= order.price %></td>
-                          <td><%= order.quantity %></td>
-                          <td><%= order.order_status_type.description %></td>
-                          <% if type.id == 1 %>
-                              <td >
-                                <div class="btn-group pull-right" role="menu" >
-                                  <%= link_to t('.full'), execute_full_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
-                                  <% if order.quantity > 1 %>
-                                      <%= link_to t('.partial'), execute_partial_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
-                                  <% end %>
-                                  <%= link_to t('.withdraw'),  withdraw_order_path(order), method: :patch , remote: true, class: 'btn btn-danger' %>
-                                </div>
-                              </td>
-                              <td><%= link_to t('.edit'), edit_order_path(order) , remote: true, class: 'btn btn-primary' %></td>
+                          <td><%= item.asset.name %></td>
+                          <td><%= item.quantity.round(1) %></td>
+                          <% if type.id == 3 %>
+                              <td><%= link_to t('.delete_position'), item, method: :delete, remote: true , class: 'btn btn-success'%></td>
                           <% end %>
                         </tr>
                     <% end %>
-	              <% else  %>
-	                <tr>
-	                  <td>
-	                    <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
-	                  </td>
-	                </tr>
-	              <% end %>
+                <% else  %>
+                    <tr>
+                      <td>
+                        <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
+                      </td>
+                    </tr>
+                <% end %>
               </table>
             </div>
         <% end %>
       </div>
-      <%= link_to t('.new'), new_order_path, remote: true, class: 'btn btn-default btn-block' %>
     </div>
   </div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h4 class="panel-title"><%= t '.orders' %></h4>
+  <span class="pull-right panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+</div>
+<div class="panel-body">
+  <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+    <% @order_types.each  do |type| %>
+        <li class=" <%= if type.id == 1 then 'active' end %>">
+          <a href="#<%= type.id %>_order" data-toggle="tab"><%= type.description %></a>
+        </li>
+    <% end %>
+  </ul>
+  <div class="tab-content">
+    <% @order_types.each do |type| %>
+        <div class="tab-pane <%= if type.id == 1 then 'active' end %>" id="<%= type.id %>_order">
+          <div class="table-responsive">
+            <table id="orders"  class="table table-condensed">
+              <% if @orders.key?(type.id)  %>
+                  <tr >
+                    <th><%= t 'activerecord.attributes.order.asset_id' %></th>
+                    <th><%= t 'activerecord.attributes.order.payment_instrument_id' %></th>
+                    <th><%= t 'activerecord.attributes.order.price' %></th>
+                    <th><%= t 'activerecord.attributes.order.quantity' %></th>
+                    <th><%= t 'activerecord.attributes.order.order_status_type_id' %></th>
+                  <% if type.id == 1 %>
+                    <th></th>
+                  <% end %>
+                  </tr>
+                  <% @orders[type.id].each do |order| %>
+                      <tr >
+                        <td><%= order.asset.name %></td>
+                        <td><%= order.payment_instrument.name %></td>
+                        <td><%= order.price %></td>
+                        <td><%= order.quantity %></td>
+                        <td><%= order.order_status_type.description %></td>
+                        <% if type.id == 1 %>
+                            <td >
+                              <div class="btn-group pull-right" role="menu" >
+                                <%= link_to t('.full'), execute_full_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
+                                <% if order.quantity > 1 %>
+                                    <%= link_to t('.partial'), execute_partial_order_path(order) , method: :patch, remote: true, class: 'btn btn-default' %>
+                                <% end %>
+                                <%= link_to t('.edit'), edit_order_path(order) , remote: true, class: 'btn btn-primary' %>
+                                <%= link_to t('.withdraw'),  withdraw_order_path(order), method: :patch , remote: true, class: 'btn btn-danger' %>
+                              </div>
+                            </td>
+                        <% end %>
+                      </tr>
+                  <% end %>
+              <% else  %>
+                  <tr>
+                    <td>
+                      <h5 class="text-center"><i><%= t '.no_data' %></i></h5>
+                    </td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+    <% end %>
+  </div>
+  <% if current_client.status.in? [1, 2] %>
+    <%= link_to t('.new'), new_order_path, remote: true, class: 'btn btn-default btn-block' %>
+  <% end %>
+</div>
 </div>

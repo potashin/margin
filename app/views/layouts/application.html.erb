@@ -4,12 +4,12 @@
   <title><%= t '.title' %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <%= render 'shared/nav' %>
-
 <div id="main-container" class="container-fluid">
   <div id="notification">
     <% flash.each do |type, messages| %>
@@ -17,41 +17,36 @@
 	        <% messages.each do |m| %>
 		        <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">
 		          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-		          <span><%= m %></span>
+		          <p><%= m %></p>
 		        </div>
 	        <% end %>
         <% else %>
             <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in text-center">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-              <span><%= messages %></span>
+              <p><%= messages %></p>
             </div>
         <% end %>
     <% end %>
   </div>
   <div class="row ">
-    <div class="col-xs-offset-1 col-xs-10 jumbotron vcenter">
+    <div class="col-xs-12 col-md-offset-1 col-md-10 jumbotron vcenter">
       <%= yield %>
     </div>
   </div>
 </div>
-<% if client_signed_in? %>
-    <div class="modal fade"  role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button class="close" data-dismiss="modal">x</button>
-            <h2></h2>
-          </div>
-          <div class="modal-body" ></div>
-          <div class="modal-footer">
-          </div>
-        </div>
+<div class="modal fade"  role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">x</button>
+        <h3></h3>
+      </div>
+      <div class="modal-body" ></div>
+      <div class="modal-footer">
       </div>
     </div>
-<% else %>
-    <%= render 'shared/sign_in' %>
-    <%= render 'shared/sign_up' %>
-<% end %>
+  </div>
+</div>
 <footer >
   <div class="container-fluid">
     <p class="text-muted"><%= t '.copyright' %></p>

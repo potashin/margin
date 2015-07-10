@@ -1,44 +1,44 @@
 <%= form_for @order, html: { class: 'form-horizontal'}, remote: true do |f|   %>
     <div class="field form-group">
-      <%= f.label :order_status_type_id, class: 'col-sm-4 control-label' %>
-      <div class="col-sm-8">
+      <%= f.label :order_status_type_id, class: 'col-xs-4 control-label' %>
+      <div class="col-xs-8">
         <%= f.collection_select :order_status_type_id, OrderStatusType.all, :id, :description %>
       </div>
     </div>
     <div class="field form-group">
-      <%= f.label :asset_id, class: 'col-sm-4 control-label' %>
-      <div class="col-sm-8">
+      <%= f.label :asset_id, class: 'col-xs-4 control-label' %>
+      <div class="col-xs-8">
         <%= f.grouped_collection_select :asset_id, AssetType.all, :assets, :description , :id, :name %>
       </div>
     </div>
     <div class="field form-group">
-      <%= f.label :quantity, class: 'col-sm-4 control-label' %>
-      <div class="col-sm-8">
+      <%= f.label :quantity, class: 'col-xs-4 control-label' %>
+      <div class="col-xs-8">
         <%= f.text_field  :quantity, class: 'form-control' %>
       </div>
     </div>
     <div class="field form-group">
-      <%= f.label :order_price_type_id, class: 'col-sm-4 control-label' %>
-      <div class="col-sm-8">
+      <%= f.label :order_price_type_id, class: 'col-xs-4 control-label' %>
+      <div class="col-xs-8">
         <%= f.collection_select  :order_price_type_id, OrderPriceType.all, :id, :description %>
       </div>
     </div>
 	<div id="price_options" style="display: <%= (@order.order_price_type_id.nil? or @order.order_price_type_id == 1) ? 'none': 'block' %>">
 	  <div class="field form-group">
-	    <%= f.label :price, class: 'col-sm-4 control-label' %>
-	    <div class="col-sm-8">
+	    <%= f.label :price, class: 'col-xs-4 control-label' %>
+	    <div class="col-xs-8">
 	      <%= f.text_field  :price, class: 'form-control' %>
 	    </div>
 	  </div>
 	  <div class="field form-group">
-	    <%= f.label :payment_instrument_id, class: 'col-sm-4 control-label' %>
-	    <div class="col-sm-8">
+	    <%= f.label :payment_instrument_id, class: 'col-xs-4 control-label' %>
+	    <div class="col-xs-8">
 	      <%= f.collection_select :payment_instrument_id, Asset.fx, :id, :name , include_blank: true %>
 	    </div>
 	  </div>
 	</div>
     <div class="actions form-group">
-      <div class="col-sm-offset-4 col-sm-8">
+      <div class="col-xs-offset-4 col-xs-8">
         <%= f.submit class: 'btn btn-success' %>
       </div>
     </div>
